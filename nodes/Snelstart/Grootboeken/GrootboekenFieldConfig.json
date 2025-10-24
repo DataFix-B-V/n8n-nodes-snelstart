@@ -1,0 +1,27 @@
+{
+  "name": "Grootboeken",
+  "getManyGrootboeken": {
+    "url": "/grootboeken",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "postManyGrootboeken": {
+    "url": "/grootboeken",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getGrootboeken": {
+    "url": "/grootboeken/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  }
+}

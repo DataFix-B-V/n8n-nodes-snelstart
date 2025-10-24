@@ -1,0 +1,21 @@
+{
+  "name": "Grootboekmutaties",
+  "getManyGrootboekmutaties": {
+    "url": "/grootboekmutaties",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "getGrootboekmutaties": {
+    "url": "/grootboekmutaties/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  }
+}

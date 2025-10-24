@@ -1,0 +1,39 @@
+{
+  "name": "Kostenplaatsen",
+  "getManyKostenplaatsen": {
+    "url": "/kostenplaatsen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "postManyKostenplaatsen": {
+    "url": "/kostenplaatsen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getKostenplaatsen": {
+    "url": "/kostenplaatsen/{kostenplaats_id}",
+    "method": "GET",
+    "urlParams": [
+      "kostenplaats_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putKostenplaatsen": {
+    "url": "/kostenplaatsen/{kostenplaats_id}",
+    "method": "PUT",
+    "urlParams": [
+      "kostenplaats_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteKostenplaatsen": {
+    "url": "/kostenplaatsen/{kostenplaats_id}",
+    "method": "DELETE",
+    "urlParams": [
+      "kostenplaats_id"
+    ],
+    "optionalUrlParams": []
+  }
+}

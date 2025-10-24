@@ -1,0 +1,43 @@
+{
+  "name": "Bankboekingen",
+  "getBankboekingen": {
+    "url": "/bankboekingen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putBankboekingen": {
+    "url": "/bankboekingen/{id}",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteBankboekingen": {
+    "url": "/bankboekingen/{id}",
+    "method": "DELETE",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyBankboekingen": {
+    "url": "/bankboekingen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getManyBankboekingen": {
+    "url": "/bankboekingen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

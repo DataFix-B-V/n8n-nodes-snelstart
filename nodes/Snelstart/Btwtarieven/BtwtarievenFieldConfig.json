@@ -1,0 +1,9 @@
+{
+  "name": "Btwtarieven",
+  "getManyBtwtarieven": {
+    "url": "/btwtarieven",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}

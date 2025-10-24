@@ -1,0 +1,43 @@
+{
+  "name": "Kasboekingen",
+  "getKasboekingen": {
+    "url": "/kasboekingen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putKasboekingen": {
+    "url": "/kasboekingen/{id}",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteKasboekingen": {
+    "url": "/kasboekingen/{id}",
+    "method": "DELETE",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyKasboekingen": {
+    "url": "/kasboekingen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getManyKasboekingen": {
+    "url": "/kasboekingen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

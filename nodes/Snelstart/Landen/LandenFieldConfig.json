@@ -1,0 +1,17 @@
+{
+  "name": "Landen",
+  "getManyLanden": {
+    "url": "/landen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getLanden": {
+    "url": "/landen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  }
+}

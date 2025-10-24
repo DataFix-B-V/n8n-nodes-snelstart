@@ -1,0 +1,15 @@
+{
+  "name": "CompanyInfo",
+  "getManyCompanyInfo": {
+    "url": "/companyInfo",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "putManyCompanyInfo": {
+    "url": "/companyInfo",
+    "method": "PUT",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Btwaangiftes",
+  "getManyBtwaangiftes": {
+    "url": "/btwaangiftes",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "getBtwaangiftes": {
+    "url": "/btwaangiftes/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putBtwaangiftesExternAangeven": {
+    "url": "/btwaangiftes/{id}/externAangeven",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  }
+}

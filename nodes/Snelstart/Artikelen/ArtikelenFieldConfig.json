@@ -1,0 +1,74 @@
+{
+  "name": "Artikelen",
+  "postManyArtikelen": {
+    "url": "/artikelen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getManyArtikelen": {
+    "url": "/artikelen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "relatieId",
+      "aantal",
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "getArtikelen": {
+    "url": "/artikelen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": [
+      "relatieId",
+      "aantal"
+    ]
+  },
+  "putArtikelen": {
+    "url": "/artikelen/{id}",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteArtikelen": {
+    "url": "/artikelen/{id}",
+    "method": "DELETE",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getArtikelenCustomFields": {
+    "url": "/artikelen/{id}/customFields",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putArtikelenCustomFields": {
+    "url": "/artikelen/{id}/customFields",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getManyArtikelenPrijsafspraken": {
+    "url": "/artikelen/prijsafspraken",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

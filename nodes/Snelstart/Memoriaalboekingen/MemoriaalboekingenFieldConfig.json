@@ -1,0 +1,33 @@
+{
+  "name": "Memoriaalboekingen",
+  "getMemoriaalboekingen": {
+    "url": "/memoriaalboekingen/{memorial_id}",
+    "method": "GET",
+    "urlParams": [
+      "memorial_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putMemoriaalboekingen": {
+    "url": "/memoriaalboekingen/{memorial_id}",
+    "method": "PUT",
+    "urlParams": [
+      "memorial_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteMemoriaalboekingen": {
+    "url": "/memoriaalboekingen/{memorial_id}",
+    "method": "DELETE",
+    "urlParams": [
+      "memorial_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyMemoriaalboekingen": {
+    "url": "/memoriaalboekingen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}

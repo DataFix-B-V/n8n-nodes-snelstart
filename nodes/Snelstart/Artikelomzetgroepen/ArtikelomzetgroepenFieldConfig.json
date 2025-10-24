@@ -1,0 +1,17 @@
+{
+  "name": "Artikelomzetgroepen",
+  "getManyArtikelomzetgroepen": {
+    "url": "/artikelomzetgroepen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getArtikelomzetgroepen": {
+    "url": "/artikelomzetgroepen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  }
+}

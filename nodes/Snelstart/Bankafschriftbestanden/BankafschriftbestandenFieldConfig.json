@@ -1,0 +1,9 @@
+{
+  "name": "Bankafschriftbestanden",
+  "postBankafschriftbestand": {
+    "url": "/bankafschriftbestanden",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}

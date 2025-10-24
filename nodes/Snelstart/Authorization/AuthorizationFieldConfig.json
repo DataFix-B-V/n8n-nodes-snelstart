@@ -1,0 +1,11 @@
+{
+  "name": "Authorization",
+  "getAuthorization": {
+    "url": "/authorization/HasUserAccessToAdministration",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "userIdentifier"
+    ]
+  }
+}

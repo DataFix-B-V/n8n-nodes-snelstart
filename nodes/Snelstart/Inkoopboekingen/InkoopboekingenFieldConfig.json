@@ -1,0 +1,53 @@
+{
+  "name": "Inkoopboekingen",
+  "getInkoopboekingen": {
+    "url": "/inkoopboekingen/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putInkoopboekingen": {
+    "url": "/inkoopboekingen/{id}",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteInkoopboekingen": {
+    "url": "/inkoopboekingen/{id}",
+    "method": "DELETE",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyInkoopboekingen": {
+    "url": "/inkoopboekingen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "postManyInkoopboekingenUbl": {
+    "url": "/inkoopboekingen/ubl",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "postManyInkoopboekingenCreateFromAttachment": {
+    "url": "/inkoopboekingen/CreateFromAttachment",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getManyInkoopboekingenGetCreateFromAttachmentStatus": {
+    "url": "/inkoopboekingen/GetCreateFromAttachmentStatus",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "instanceId"
+    ]
+  }
+}

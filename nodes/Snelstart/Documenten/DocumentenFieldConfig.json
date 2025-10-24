@@ -1,0 +1,44 @@
+{
+  "name": "Documenten",
+  "getDocumenten": {
+    "url": "/documenten/{id}",
+    "method": "GET",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putDocumenten": {
+    "url": "/documenten/{id}",
+    "method": "PUT",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteDocumenten": {
+    "url": "/documenten/{id}",
+    "method": "DELETE",
+    "urlParams": [
+      "id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getManyDocumentenDocumenttypePid": {
+    "url": "/documenten/{documenttype}/{pid}",
+    "method": "GET",
+    "urlParams": [
+      "documenttype",
+      "pid"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyDocumentenDocumenttype": {
+    "url": "/documenten/{documenttype}",
+    "method": "POST",
+    "urlParams": [
+      "documenttype"
+    ],
+    "optionalUrlParams": []
+  }
+}

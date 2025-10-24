@@ -1,0 +1,13 @@
+{
+  "name": "Inkoopfacturen",
+  "getManyInkoopfacturen": {
+    "url": "/inkoopfacturen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

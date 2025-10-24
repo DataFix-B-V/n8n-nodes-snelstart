@@ -1,0 +1,11 @@
+{
+  "name": "Echo",
+  "getManyEchoInput": {
+    "url": "/echo/{input}",
+    "method": "GET",
+    "urlParams": [
+      "input"
+    ],
+    "optionalUrlParams": []
+  }
+}

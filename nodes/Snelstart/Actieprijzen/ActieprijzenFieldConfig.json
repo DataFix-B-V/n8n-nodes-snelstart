@@ -1,0 +1,13 @@
+{
+  "name": "Actieprijzen",
+  "getManyActieprijzen": {
+    "url": "/actieprijzen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

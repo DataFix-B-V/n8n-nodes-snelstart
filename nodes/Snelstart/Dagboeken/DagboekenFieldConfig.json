@@ -1,0 +1,9 @@
+{
+  "name": "Dagboeken",
+  "getManyDagboeken": {
+    "url": "/dagboeken",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}
