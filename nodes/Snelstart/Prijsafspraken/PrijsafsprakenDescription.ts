@@ -1,17 +1,17 @@
 import { INodeProperties } from 'n8n-workflow';
 
-export const inkoopfacturenDescription: INodeProperties[] = [
+export const prijsafsprakenDescription: INodeProperties[] = [
   {
     displayName: 'Operation',
     name: 'operation',
     type: 'options',
     noDataExpression: true,
-    default: 'getManyInkoopfacturen',
+    default: 'getManyPrijsafspraken',
     options: [
-      { name: "Get Many Inkoopfacturen", value: "getManyInkoopfacturen", action: "Get many inkoopfacturen" }
+      { name: "Get Many Prijsafspraken", value: "getManyPrijsafspraken", action: "Get many prijsafspraken" }
     ],
     displayOptions: {
-      show: { resource: ['inkoopfacturen'] },
+      show: { resource: ['prijsafspraken'] },
     },
   },
 	{
@@ -22,8 +22,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		description: 'Whether to return all results or only up to a given limit',
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['prijsafspraken'],
+				operation: ['getManyPrijsafspraken'],
 			},
 		},
 	},
@@ -35,8 +35,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['prijsafspraken'],
+				operation: ['getManyPrijsafspraken'],
 			},
 		},
 		options: [
@@ -44,5 +44,5 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
-	}
+	},
 ]

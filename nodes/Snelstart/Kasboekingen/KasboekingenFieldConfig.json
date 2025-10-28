@@ -1,26 +1,26 @@
 {
   "name": "Kasboekingen",
   "getKasboekingen": {
-    "url": "/kasboekingen/{id}",
+    "url": "/kasboekingen/{kasboeking_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "kasboeking_id"
     ],
     "optionalUrlParams": []
   },
   "putKasboekingen": {
-    "url": "/kasboekingen/{id}",
+    "url": "/kasboekingen/{kasboeking_id}",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "kasboeking_id"
     ],
     "optionalUrlParams": []
   },
   "deleteKasboekingen": {
-    "url": "/kasboekingen/{id}",
+    "url": "/kasboekingen/{kasboeking_id}",
     "method": "DELETE",
     "urlParams": [
-      "id"
+      "kasboeking_id"
     ],
     "optionalUrlParams": []
   },

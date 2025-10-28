@@ -11,18 +11,18 @@
     ]
   },
   "getBtwaangiftes": {
-    "url": "/btwaangiftes/{id}",
+    "url": "/btwaangiftes/{btw_aangifte_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "btw_aangifte_id"
     ],
     "optionalUrlParams": []
   },
   "putBtwaangiftesExternAangeven": {
-    "url": "/btwaangiftes/{id}/externAangeven",
+    "url": "/btwaangiftes/{btw_aangifte_id}/externAangeven",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "btw_aangifte_id"
     ],
     "optionalUrlParams": []
   }

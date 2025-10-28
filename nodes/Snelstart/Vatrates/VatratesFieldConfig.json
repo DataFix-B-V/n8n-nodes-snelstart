@@ -1,0 +1,21 @@
+{
+  "name": "Vatrates",
+  "getVatrates": {
+    "url": "/vatrates/{vatrate_id}",
+    "method": "GET",
+    "urlParams": [
+      "vatrate_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getManyVatrates": {
+    "url": "/vatrates",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

@@ -17,10 +17,36 @@ export const btwaangiftesDescription: INodeProperties[] = [
 		},
   },
 	{
-		displayName: 'Add Parameters',
-		name: 'parameters',
+		displayName:
+			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		name: 'postNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['btwaangifte'],
+				operation: ['putBtwaangiftesExternAangeven'],
+			},
+		},
+	},
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: {
+			show: {
+				resource: ['btwaangiftes'],
+				operation: ['getManyBtwaangiftes'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
 		type: 'collection',
-		placeholder: 'Add Parameter',
+		placeholder: 'Add Option',
 		default: {},
 		displayOptions: {
 			show: {
@@ -30,13 +56,13 @@ export const btwaangiftesDescription: INodeProperties[] = [
 		},
 		options: [
 			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
-			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip' },
-			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
+			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
+			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
 	},
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName: 'BTW Aangiftes ID',
+		name: 'btw_aangifte_id',
 		type: 'string',
 		default: undefined,
 		description: 'The ID of the btwaangifte',

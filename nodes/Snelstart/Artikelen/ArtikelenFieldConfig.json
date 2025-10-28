@@ -19,10 +19,10 @@
     ]
   },
   "getArtikelen": {
-    "url": "/artikelen/{id}",
+    "url": "/artikelen/{artikel_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "artikel_id"
     ],
     "optionalUrlParams": [
       "relatieId",
@@ -30,34 +30,34 @@
     ]
   },
   "putArtikelen": {
-    "url": "/artikelen/{id}",
+    "url": "/artikelen/{artikel_id}",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "artikel_id"
     ],
     "optionalUrlParams": []
   },
   "deleteArtikelen": {
-    "url": "/artikelen/{id}",
+    "url": "/artikelen/{artikel_id}",
     "method": "DELETE",
     "urlParams": [
-      "id"
+      "artikel_id"
     ],
     "optionalUrlParams": []
   },
   "getArtikelenCustomFields": {
-    "url": "/artikelen/{id}/customFields",
+    "url": "/artikelen/{artikel_id}/customFields",
     "method": "GET",
     "urlParams": [
-      "id"
+      "artikel_id"
     ],
     "optionalUrlParams": []
   },
   "putArtikelenCustomFields": {
-    "url": "/artikelen/{id}/customFields",
+    "url": "/artikelen/{artikel_id}/customFields",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "artikel_id"
     ],
     "optionalUrlParams": []
   },

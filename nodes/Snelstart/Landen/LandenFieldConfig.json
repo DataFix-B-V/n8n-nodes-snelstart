@@ -7,10 +7,10 @@
     "optionalUrlParams": []
   },
   "getLanden": {
-    "url": "/landen/{id}",
+    "url": "/landen/{land_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "land_id"
     ],
     "optionalUrlParams": []
   }

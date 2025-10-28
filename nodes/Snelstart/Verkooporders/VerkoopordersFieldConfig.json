@@ -1,0 +1,51 @@
+{
+  "name": "Verkooporders",
+  "getManyVerkooporders": {
+    "url": "/verkooporders",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "postManyVerkooporders": {
+    "url": "/verkooporders",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getVerkooporders": {
+    "url": "/verkooporders/{verkooporder_id}",
+    "method": "GET",
+    "urlParams": [
+      "verkooporder_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putVerkooporders": {
+    "url": "/verkooporders/{verkooporder_id}",
+    "method": "PUT",
+    "urlParams": [
+      "verkooporder_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteVerkooporders": {
+    "url": "/verkooporders/{verkooporder_id}",
+    "method": "DELETE",
+    "urlParams": [
+      "verkooporder_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putVerkoopordersProcesStatus": {
+    "url": "/verkooporders/{verkooporder_id}/ProcesStatus",
+    "method": "PUT",
+    "urlParams": [
+      "verkooporder_id"
+    ],
+    "optionalUrlParams": []
+  }
+}

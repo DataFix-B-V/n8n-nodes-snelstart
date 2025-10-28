@@ -27,63 +27,20 @@ import grootboekenConfig from './Grootboeken/GrootboekenFieldConfig.json';
 import grootboekmutatiesConfig from './Grootboekmutaties/GrootboekmutatiesFieldConfig.json';
 import inkoopboekingenConfig from './Inkoopboekingen/InkoopboekingenFieldConfig.json';
 import inkoopfacturenConfig from './Inkoopfacturen/InkoopfacturenFieldConfig.json';
-import kasboekingeConfig from './Kasboekingen/KasboekingenFieldConfig.json';
-import kostenplaatConfig from './Kostenplaatsen/KostenplaatsenFieldConfig.json';
+import kasboekingenConfig from './Kasboekingen/KasboekingenFieldConfig.json';
+import kostenplaatsenConfig from './Kostenplaatsen/KostenplaatsenFieldConfig.json';
 import landenConfig from './Landen/LandenFieldConfig.json';
 import memoriaalboekingenConfig from './Memoriaalboekingen/MemoriaalboekingenFieldConfig.json';
 import offertesConfig from './Offertes/OffertesFieldConfig.json';
-
-// --- helpers ---
-function toJsonObject(e: unknown): JsonObject {
-	if (e && typeof e === 'object') return e as JsonObject;
-	return { message: String(e ?? 'Unknown error') } as unknown as JsonObject;
-}
-
-export type SnelstartRequestResponse =
-	| IDataObject | IDataObject[] | string | number | boolean| null;
-
-export async function makeRequest(
-	this: IExecuteFunctions,
-	method: IHttpRequestMethods,
-	// baseUrl: string,
-	extraUrl: string,
-	body: object = {},
-): Promise<SnelstartRequestResponse> {
-	const credentialType = 'snelstartCredentialsApi';
-	const credentials = await this.getCredentials(credentialType);
-	// const baseURL = 'https://b2bapi.snelstart.nl/v2';
-	const baseURL = 'http://localhost:3001/v2';
-
-	if (!credentials) {
-		throw new NodeOperationError(
-			this.getNode(),
-			'Missing credentials “snelstartCredentialsApi”. Configure credentials on the node.',
-		);
-	}
-
-	const normalizedExtra = extraUrl ? `/${extraUrl.replace(/^\/+/, '')}` : '';
-	const endpoint = `${baseURL}${normalizedExtra}`;
-
-	const options: IHttpRequestOptions = {
-		method,
-		body,
-		url: endpoint,
-		json: true,
-	};
-
-	try {
-		const res = await this.helpers.httpRequestWithAuthentication.call(
-			this,
-			credentialType,
-			options,
-		);
-		return res as SnelstartRequestResponse;
-	} catch (error) {
-		throw new NodeApiError(this.getNode(), toJsonObject(error), {
-			message: 'Snelstart API request failed',
-		});
-	}
-}
+import prijsafsprakenConfig from './Prijsafspraken/PrijsafsprakenFieldConfig.json';
+import rapportagesConfig from './Rapportages/RapportagesFieldConfig.json';
+import relatiesConfig from './Relaties/RelatiesFieldConfig.json';
+import vatratedefinitionsConfig from './Vatratedefinitions/VatratedefinitionsFieldConfig.json';
+import vatratesConfig from './Vatrates/VatratesFieldConfig.json';
+import verkoopboekingenConfig from './Verkoopboekingen/VerkoopboekingenFieldConfig.json';
+import verkoopfacturenConfig from './Verkoopfacturen/VerkoopfacturenFieldConfig.json';
+import verkoopordersConfig from './Verkooporders/VerkoopordersFieldConfig.json';
+import verkoopordersjablonenConfig from './Verkoopordersjablonen/VerkoopordersjablonenFieldConfig.json';
 
 export type RequestOptionsTuple = [string, string, string[], string[]];
 
@@ -143,19 +100,46 @@ export async function createRequestOptions(
 			configObj = inkoopfacturenConfig;
 			break;
 		case 'kasboekingen':
-			configObj = kasboekingeConfig;
+			configObj = kasboekingenConfig;
 			break;
 		case 'landen':
 			configObj = landenConfig;
 			break;
 		case 'kostenplaatsen':
-			configObj = kostenplaatConfig;
+			configObj = kostenplaatsenConfig;
 			break;
 		case 'memoriaalboekingen':
 			configObj = memoriaalboekingenConfig;
 			break;
 		case 'offertes':
 			configObj = offertesConfig;
+			break;
+		case 'prijsafspraken':
+			configObj = prijsafsprakenConfig;
+			break;
+		case 'rapportages':
+			configObj = rapportagesConfig;
+			break;
+		case 'relaties':
+			configObj = relatiesConfig;
+			break;
+		case 'vatratedefinitions':
+			configObj = vatratedefinitionsConfig;
+			break;
+		case 'vatrates':
+			configObj = vatratesConfig;
+			break;
+		case 'verkoopboekingen':
+			configObj = verkoopboekingenConfig;
+			break;
+		case 'verkoopfacturen':
+			configObj = verkoopfacturenConfig;
+			break;
+		case 'verkooporders':
+			configObj = verkoopordersConfig;
+			break;
+		case 'verkoopordersjablonen':
+			configObj = verkoopordersjablonenConfig;
 			break;
 		default:
 			throw new NodeOperationError(
@@ -175,6 +159,68 @@ export async function createRequestOptions(
 	}
 	return [cfg.url, cfg.method, cfg.urlParams, cfg.optionalUrlParams ?? []];
 }
+
+// Format error object to JsonObject
+function toJsonObject(e: unknown): JsonObject {
+	if (e && typeof e === 'object') return e as JsonObject;
+	return { message: e as string};
+}
+
+export type SnelstartRequestResponse =
+	| IDataObject | IDataObject[] | string | number | boolean| null;
+
+// Make an authenticated API request to Snelstart
+export async function makeRequest(
+	this: IExecuteFunctions,
+	method: IHttpRequestMethods,
+	endpoint: string,
+	body: object = {},
+	qs: IDataObject = {},
+): Promise<SnelstartRequestResponse> {
+	const credentialType = 'snelstartCredentialsApi';
+	const credentials = await this.getCredentials(credentialType);
+	const baseURL = 'https://b2bapi.snelstart.nl/v2';
+
+	if (!credentials) {
+		throw new NodeOperationError(
+			this.getNode(),
+			'Missing credentials “snelstartCredentialsApi”. Configure credentials on the node.',
+		);
+	}
+
+	const normalizedExtra = endpoint ? `/${endpoint.replace(/^\/+/, '')}` : '';
+	const uri  = `${baseURL}${normalizedExtra}`;
+
+	this.logger.info(`Making request with Skip: ${qs['$skip'] } and Top: ${qs['$top'] }`);
+
+	const options: IHttpRequestOptions = {
+		method,
+		body,
+		qs,
+		url: uri,
+		json: true,
+	};
+
+	try {
+		const res = await this.helpers.httpRequestWithAuthentication.call(
+			this,
+			credentialType,
+			options,
+		);
+
+		return res as SnelstartRequestResponse;
+	} catch (error) {
+		throw new NodeApiError(
+			this.getNode(),
+			toJsonObject(error) as JsonObject,
+			{
+				message: `${error?.message || 'jsmAssets API request failed'}`,
+				description: `${JSON.stringify(toJsonObject(error), null, 2)}`,
+			},
+		);
+	}
+}
+
 
 // Unwrap the "values" layer of fixedCollections recursively
 const hasOwn = Object.prototype.hasOwnProperty;
@@ -220,7 +266,6 @@ export async function getBody(
 		const fields = this.getNodeParameter('fields', itemIndex, {}) as IDataObject;
 		if (fields && typeof fields === 'object') {
 			for (const [subKey, rawVal] of Object.entries(fields)) {
-				this.logger?.info?.(`Field subKey: ${subKey} with raw value: ${JSON.stringify(rawVal)}`);
 				const val = unwrapFC(rawVal);
 				if (val !== '' && val !== undefined && !(Array.isArray(val) && val.length === 0) && !(typeof val === 'object' && val && Object.keys(val as object).length === 0)) {
 					finalParameters[subKey] = val as IDataObject;
@@ -229,7 +274,7 @@ export async function getBody(
 		}
 
 		// Add other node parameters except defaults and "fields" itself
-		const excludedFields = ['overwriteBaseUrl', 'resource', 'operation', 'parameters', 'fields', 'options', 'instanceId'];
+		const excludedFields = ['overwriteBaseUrl', 'resource', 'operation', 'parameters', 'fields', 'options', 'instanceId', 'returnAll'];
 		for (const [key, value] of Object.entries(this.getNode().parameters)) {
 			this.logger?.info?.(`Field: ${key} with value: ${JSON.stringify(value)}`);
 			if (excludedFields.includes(key)) continue;
@@ -251,8 +296,72 @@ export async function getBody(
 	} catch (error) {
 		this.logger?.error?.(
 			`Error in getBody for resource: ${resource}, operation: ${operation}`,
-			{ error: error instanceof Error ? error.message : String(error) },
+			{ error: error },
 		);
 		throw new NodeOperationError(this.getNode(), toJsonObject(error), { itemIndex });
 	}
 }
+
+export async function createQs(this: IExecuteFunctions, options: IDataObject): Promise<IDataObject> {
+	// Append query string if we have any options
+	const qs: IDataObject = {};
+
+	for (const [key, value] of Object.entries(options)) {
+			qs[key] = value;
+		}
+
+	return qs;
+	}
+
+export async function paginateRequest(
+	this: IExecuteFunctions,
+	endpoint: string,
+	method: IHttpRequestMethods,
+	qs: IDataObject,
+	chunkSize: number,
+	resource: string,
+	operation: string,
+	itemIndex: number,
+): Promise<IDataObject[]> {
+
+	const body = await getBody.call(this, resource, operation, itemIndex);
+	const returnAll = this.getNodeParameter('returnAll', itemIndex, false) as boolean;
+
+	// If user sets $top, use it; otherwise default to chunkSize
+	const top = (qs['$top'] as number) || chunkSize;
+
+	// Initialize pagination values
+	if (operation.startsWith('getMany')) {
+		qs['$skip'] = qs['$skip'] as number || 0;
+		qs['$top']  = top;
+	}
+
+	const returnedData: IDataObject[] = [];
+
+	while (true) {
+		const response: any = await makeRequest.call(this, method, endpoint, body, qs);
+
+		// Add items to result
+		if (Array.isArray(response)) {
+			returnedData.push(...response);
+		} else {
+			returnedData.push(response as IDataObject);
+		}
+
+		// Stop if this is not a getMany
+		if (!operation.startsWith('getMany')) break;
+
+		// Stop if empty page
+		if (response.length === 0) break;
+
+		// If not returnAll → stop after one request
+		if (!returnAll) break;
+
+		// Prepare next page
+		qs['$skip'] = (qs['$skip'] as number) + chunkSize;
+	}
+
+	return returnedData;
+}
+
+

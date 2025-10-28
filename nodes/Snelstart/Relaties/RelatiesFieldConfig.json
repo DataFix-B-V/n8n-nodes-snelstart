@@ -1,0 +1,83 @@
+{
+  "name": "Relaties",
+  "getManyRelaties": {
+    "url": "/relaties",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  },
+  "postManyRelaties": {
+    "url": "/relaties",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getRelaties": {
+    "url": "/relaties/{relatie_id}",
+    "method": "GET",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putRelaties": {
+    "url": "/relaties/{relatie_id}",
+    "method": "PUT",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteRelaties": {
+    "url": "/relaties/{relatie_id}",
+    "method": "DELETE",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getRelatiesDoorlopendeincassomachtigingen": {
+    "url": "/relaties/{relatie_id}/doorlopendeincassomachtigingen",
+    "method": "GET",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getRelatiesInkoopboekingen": {
+    "url": "/relaties/{relatie_id}/inkoopboekingen",
+    "method": "GET",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getRelatiesVerkoopboekingen": {
+    "url": "/relaties/{relatie_id}/verkoopboekingen",
+    "method": "GET",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getRelatiesCustomFields": {
+    "url": "/relaties/{relatie_id}/customFields",
+    "method": "GET",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putRelatiesCustomFields": {
+    "url": "/relaties/{relatie_id}/customFields",
+    "method": "PUT",
+    "urlParams": [
+      "relatie_id"
+    ],
+    "optionalUrlParams": []
+  }
+}

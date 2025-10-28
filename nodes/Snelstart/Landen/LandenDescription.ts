@@ -16,8 +16,8 @@ export const landenDescription: INodeProperties[] = [
     },
   },
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName: 'Land ID',
+		name: 'land_id',
 		type: 'string',
 		default: '',
 		required: true,

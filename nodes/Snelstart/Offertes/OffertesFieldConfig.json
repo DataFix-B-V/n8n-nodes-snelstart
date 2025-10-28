@@ -17,26 +17,26 @@
     "optionalUrlParams": []
   },
   "getOffertes": {
-    "url": "/offertes/{offertes_id}",
+    "url": "/offertes/{offerte_id}",
     "method": "GET",
     "urlParams": [
-      "offertes_id"
+      "offerte_id"
     ],
     "optionalUrlParams": []
   },
   "putOffertes": {
-    "url": "/offertes/{offertes_id}",
+    "url": "/offertes/{offerte_id}",
     "method": "PUT",
     "urlParams": [
-      "offertes_id"
+      "offerte_id"
     ],
     "optionalUrlParams": []
   },
   "deleteOffertes": {
-    "url": "/offertes/{offertes_id}",
+    "url": "/offertes/{offerte_id}",
     "method": "DELETE",
     "urlParams": [
-      "offertes_id"
+      "offerte_id"
     ],
     "optionalUrlParams": []
   }

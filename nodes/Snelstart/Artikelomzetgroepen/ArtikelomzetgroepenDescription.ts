@@ -16,8 +16,8 @@ export const artikelomzetgroepenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName: 'Artikel Omzetgroep ID',
+		name: 'artikel_omzetgroep_id',
 		type: 'number',
 		default: undefined,
 		description: 'The public identifier of the resource as System.Guid',

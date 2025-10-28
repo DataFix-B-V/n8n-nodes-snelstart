@@ -1,26 +1,26 @@
 {
   "name": "Inkoopboekingen",
   "getInkoopboekingen": {
-    "url": "/inkoopboekingen/{id}",
+    "url": "/inkoopboekingen/{inkoopboeking_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "inkoopboeking_id"
     ],
     "optionalUrlParams": []
   },
   "putInkoopboekingen": {
-    "url": "/inkoopboekingen/{id}",
+    "url": "/inkoopboekingen/{inkoopboeking_id}",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "inkoopboeking_id"
     ],
     "optionalUrlParams": []
   },
   "deleteInkoopboekingen": {
-    "url": "/inkoopboekingen/{id}",
+    "url": "/inkoopboekingen/{inkoopboeking_id}",
     "method": "DELETE",
     "urlParams": [
-      "id"
+      "inkoopboeking_id"
     ],
     "optionalUrlParams": []
   },

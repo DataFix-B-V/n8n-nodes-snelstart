@@ -18,8 +18,20 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
     },
   },
 	{
-		displayName: 'Memoriaal ID',
-		name: 'memorial_id',
+		displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		name: 'postNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['memoriaalboekingen'],
+				operation: ['postManyMemoriaalboekingen', 'putMemoriaalboekingen'],
+			},
+		},
+	},
+	{
+		displayName: 'Memoriaal Boekingen ID',
+		name: 'memoriaal_boekingen_id',
 		type: 'string',
 		default: '',
 		required: true,

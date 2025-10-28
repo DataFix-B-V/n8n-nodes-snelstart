@@ -1,8 +1,11 @@
 import {
 	IAuthenticateGeneric,
+	ICredentialDataDecryptedObject,
 	ICredentialTestRequest,
 	ICredentialType,
+	IHttpRequestHelper,
 	INodeProperties,
+	Icon,
 } from 'n8n-workflow';
 
 export class SnelstartCredentialsApi implements ICredentialType {
@@ -10,27 +13,60 @@ export class SnelstartCredentialsApi implements ICredentialType {
 	displayName = 'Snelstart Credentials API';
 
 	documentationUrl = 'https://b2bapi-developer.snelstart.nl/';
+	icon: Icon = 'file:SnelstartIcon.svg';
 
 	properties: INodeProperties[] = [
-		// The credentials to get from user and save encrypted.
-		// Properties can be defined exactly in the same way
-		// as node properties.
 		{
-			displayName: 'User Name',
-			name: 'username',
+			displayName: 'Snelstart Client Key',
+			name: 'clientKey',
 			type: 'string',
+			description: 'Log in to SnelStart Web, open the desired link tile and select “set up link” to generate the key.',
+			typeOptions: { password: true },
 			default: '',
+			required: true,
 		},
 		{
-			displayName: 'Password',
-			name: 'password',
+			displayName: 'Subscription Key',
+			name: 'subscriptionKey',
 			type: 'string',
+			description: 'This key can be managed by a partner in the Products menu item and provides access to the API.',
+			typeOptions: { password: true },
+			default: '',
+			required: true,
+		},
+		{
+			displayName: 'Access Token',
+			name: 'accessToken',
+			type: 'hidden',
+			default: '',
+			required: false,
 			typeOptions: {
-				password: true,
+				expirable: true,
 			},
-			default: '',
-		},
+		}
 	];
+
+	// Getting the access token and its expiry time
+	async preAuthentication(
+		this: IHttpRequestHelper,
+		credentials: ICredentialDataDecryptedObject,
+	): Promise<{ accessToken: string; expiresAt?: number }> {
+		// Requesting a new access token using the client key
+		const response = await this.helpers.httpRequest({
+			method: 'POST',
+			url: 'https://auth.snelstart.nl/b2b/token',
+			json: false,
+			headers: {
+				'content-type': 'application/x-www-form-urlencoded',
+			},
+			body: {
+				grant_type: 'clientkey',
+				clientkey: credentials.clientKey,
+			},
+		});
+
+		return { accessToken: response.access_token};
+	}
 
 	// This credential is currently not used by any node directly
 	// but the HTTP Request node can use it to make requests.
@@ -38,9 +74,9 @@ export class SnelstartCredentialsApi implements ICredentialType {
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
-			auth: {
-				username: '={{ $credentials.username }}',
-				password: '={{ $credentials.password }}',
+			headers: {
+				'Authorization': '={{ "Bearer " + $credentials.accessToken }}',
+				'Ocp-Apim-Subscription-Key': '={{ $credentials.subscriptionKey }}',
 			},
 		},
 	};
@@ -48,8 +84,9 @@ export class SnelstartCredentialsApi implements ICredentialType {
 	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://b2bapi.snelstart.nl/echo/resource',
-			url: '',
+			baseURL: 'https://b2bapi.snelstart.nl',
+			url: '/echo/resource?params1=sample',
+			method: 'GET',
 		},
 	};
 }

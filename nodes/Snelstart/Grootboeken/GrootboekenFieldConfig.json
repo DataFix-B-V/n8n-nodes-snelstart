@@ -17,10 +17,10 @@
     "optionalUrlParams": []
   },
   "getGrootboeken": {
-    "url": "/grootboeken/{id}",
+    "url": "/grootboeken/{grootboek_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "grootboek_id"
     ],
     "optionalUrlParams": []
   }

@@ -1,26 +1,26 @@
 {
   "name": "Bankboekingen",
   "getBankboekingen": {
-    "url": "/bankboekingen/{id}",
+    "url": "/bankboekingen/{bankboekingen_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "bankboekingen_id"
     ],
     "optionalUrlParams": []
   },
   "putBankboekingen": {
-    "url": "/bankboekingen/{id}",
+    "url": "/bankboekingen/{bankboekingen_id}",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "bankboekingen_id"
     ],
     "optionalUrlParams": []
   },
   "deleteBankboekingen": {
-    "url": "/bankboekingen/{id}",
+    "url": "/bankboekingen/{bankboekingen_id}",
     "method": "DELETE",
     "urlParams": [
-      "id"
+      "bankboekingen_id"
     ],
     "optionalUrlParams": []
   },

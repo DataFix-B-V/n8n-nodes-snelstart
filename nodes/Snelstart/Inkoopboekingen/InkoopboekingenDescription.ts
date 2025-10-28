@@ -19,8 +19,21 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		displayOptions: { show: { resource: ['inkoopboekingen'] } },
 	},
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName:
+			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		name: 'postNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['inkoopboekingen'],
+				operation: ['postManyInkoopboekingen', 'putInkoopboekingen', 'postManyInkoopboekingenCreateFromAttachment', 'postManyInkoopboekingenUbl'],
+			},
+		},
+	},
+	{
+		displayName: 'Inkoopboeking ID',
+		name: 'inkoopboeking_id',
 		type: 'string',
 		default: undefined,
 		description: 'Unique identifier for the inkoopboeking (GUID)',

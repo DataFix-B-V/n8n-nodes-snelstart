@@ -1,0 +1,33 @@
+{
+  "name": "Verkoopboekingen",
+  "getVerkoopboekingen": {
+    "url": "/verkoopboekingen/{verkoop_boeking_id}",
+    "method": "GET",
+    "urlParams": [
+      "verkoop_boeking_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "putVerkoopboekingen": {
+    "url": "/verkoopboekingen/{verkoop_boeking_id}",
+    "method": "PUT",
+    "urlParams": [
+      "verkoop_boeking_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "deleteVerkoopboekingen": {
+    "url": "/verkoopboekingen/{verkoop_boeking_id}",
+    "method": "DELETE",
+    "urlParams": [
+      "verkoop_boeking_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "postManyVerkoopboekingen": {
+    "url": "/verkoopboekingen",
+    "method": "POST",
+    "urlParams": [],
+    "optionalUrlParams": []
+  }
+}

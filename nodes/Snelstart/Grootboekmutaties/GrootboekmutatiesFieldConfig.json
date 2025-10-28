@@ -11,10 +11,10 @@
     ]
   },
   "getGrootboekmutaties": {
-    "url": "/grootboekmutaties/{id}",
+    "url": "/grootboekmutaties/{grootboek_mutatie_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "grootboek_mutatie_id"
     ],
     "optionalUrlParams": []
   }

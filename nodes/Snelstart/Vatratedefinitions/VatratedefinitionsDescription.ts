@@ -1,17 +1,17 @@
 import { INodeProperties } from 'n8n-workflow';
 
-export const inkoopfacturenDescription: INodeProperties[] = [
+export const vatratedefinitionsDescription: INodeProperties[] = [
   {
     displayName: 'Operation',
     name: 'operation',
     type: 'options',
     noDataExpression: true,
-    default: 'getManyInkoopfacturen',
+    default: 'getManyVatratedefinitions',
     options: [
-      { name: "Get Many Inkoopfacturen", value: "getManyInkoopfacturen", action: "Get many inkoopfacturen" }
+      { name: "Get Many Vatratedefinitions", value: "getManyVatratedefinitions", action: "Get many vatratedefinitions" }
     ],
     displayOptions: {
-      show: { resource: ['inkoopfacturen'] },
+      show: { resource: ['vatratedefinitions'] },
     },
   },
 	{
@@ -22,8 +22,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		description: 'Whether to return all results or only up to a given limit',
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['vatratedefinitions'],
+				operation: ['getManyVatratedefinitions'],
 			},
 		},
 	},
@@ -35,8 +35,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['vatratedefinitions'],
+				operation: ['getManyVatratedefinitions'],
 			},
 		},
 		options: [
@@ -44,5 +44,6 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
-	}
+	},
 ]
+

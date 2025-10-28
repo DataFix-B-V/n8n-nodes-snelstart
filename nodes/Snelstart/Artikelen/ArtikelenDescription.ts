@@ -21,10 +21,23 @@ export const artikelenDescription: INodeProperties[] = [
       show: { resource: ['artikelen'] },
     },
   },
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: {
+			show: {
+				resource: ['artikelen'],
+				operation: ['getManyArtikelen'],
+			},
+		},
+	},
   {
-    displayName: 'ID',
-    name: 'id',
-    type: 'number',
+    displayName: 'Artikelen ID',
+    name: 'artikel_id',
+    type: 'string',
     default: undefined,
     description: 'The public identifier of the resource as System.Guid',
     required: true,
@@ -69,31 +82,26 @@ export const artikelenDescription: INodeProperties[] = [
 			},
 		},
 	},
-  {
-    displayName: 'Add Parameters',
-    name: 'parameters',
-    type: 'collection',
-    placeholder: 'Add Parameter',
-    default: {},
-    displayOptions: {
-      show: {
-        resource: ['artikelen'],
-        operation: ['getManyArtikelen'],
-      },
-    },
-    options: [
-      { displayName: 'Amount', name: 'totaal', type: 'number', default: undefined, description: 'The total number of items to return' },
-      { displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
-      { displayName: 'Relation ID', name: 'relatieId', type: 'string', default: undefined, description: 'The relation ID of the price agreements to fetch' },
-      { displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip' },
-      { displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
-    ],
-  },
 	{
-		displayName: 'Add Parameters',
-		name: 'parameters',
+		displayName: 'Options',
+		name: 'options',
 		type: 'collection',
-		placeholder: 'Add Parameter',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: { show: { resource: ['artikelen'], operation: ['getManyArtikelen'] } },
+		options: [
+			{ displayName: 'Amount', name: 'totaal', type: 'number', default: 0, description: 'The (optionally provided) quantity of the item for which the price agreement for the item to be collected must be determined' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: '', description: 'OData $filter' },
+			{ displayName: 'Relation ID', name: 'relatieId', type: 'string', default: '', description: 'The relation ID of the price agreements to fetch' },
+			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] } } },
+			{ displayName: 'Top', name: '$top', type: 'number', default: 0, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] } } },
+		],
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
 		default: {},
 		displayOptions: {
 			show: {
@@ -108,10 +116,10 @@ export const artikelenDescription: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Add Parameters',
-		name: 'parameters',
+		displayName: 'Options',
+		name: 'options',
 		type: 'collection',
-		placeholder: 'Add Parameter',
+		placeholder: 'Add Option',
 		default: {},
 		displayOptions: {
 			show: {
@@ -120,10 +128,24 @@ export const artikelenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
-			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter', displayOptions: { show: { '/returnAll': [false] }, }, },
+			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
 		],
+	},
+
+	// Adding a note to the UI for posting and putting artikelen
+	{
+		displayName: 'Heads-up: Fields marked (\*) are required (verified via testing), despite the official docs stating they’re optional. It is possible that more fields are required but not yet identified.',
+		name: 'note',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['artikelen'],
+				operation: ['postManyArtikelen', 'putArtikelen'],
+			},
+		},
 	},
 	{
 		displayName: 'Add Field',
@@ -138,7 +160,7 @@ export const artikelenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Artikel Group',
+				displayName: 'Artikel Group*',
 				name: 'artikelOmzetgroep',
 				type: 'fixedCollection',
 				default: {},
@@ -154,8 +176,8 @@ export const artikelenDescription: INodeProperties[] = [
 				],
 				description: 'The artikel omzetgroep of the artikel',
 			},
-			{ displayName: 'Artikelcode', name: 'artikelcode', type: 'string', default: undefined, description: 'The code of the artikel' },
-			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the artikel' },
+			{ displayName: 'Artikelcode*', name: 'artikelcode', type: 'string', default: undefined, description: 'The code of the artikel' },
+			{ displayName: 'Description*', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the artikel' },
 			{
 				displayName: 'Extra Fields',
 				name: 'extraVelden',
@@ -197,7 +219,7 @@ export const artikelenDescription: INodeProperties[] = [
 				],
 				description: 'The relation object of the artikel',
 			},
-			{ displayName: 'Selling Price', name: 'verkoopprijs', type: 'number', default: undefined, description: 'The selling price of the artikel' },
+			{ displayName: 'Selling Price', name: 'verkoopprijs', type: 'number', default: undefined, description: 'The selling price of the artikel', required: true },
 			{ displayName: 'Technical Inventory', name: 'technischeVoorraad', type: 'number', default: undefined, description: 'The technical inventory of the artikel' },
 			{ displayName: 'Unit', name: 'eenheid', type: 'string', default: undefined, description: 'The unit of the artikel' },
 			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the resource' },

@@ -15,12 +15,27 @@ export const bankboekingenDescription: INodeProperties[] = [
 			{ name: "Put Bankboekingen", value: "putBankboekingen", action: "Put bankboekingen" }
 		],
 		displayOptions: {
-			show: { resource: ['bankboekingen'] },
+			show: {
+				resource: ['bankboekingen'],
+			},
 		},
 	},
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName:
+			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		name: 'postNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['bankboekingen'],
+				operation: ['postManyBankboekingen', 'postBankboekingen'],
+			},
+		},
+	},
+	{
+		displayName: 'Bankboekingen ID',
+		name: 'bankboekingen_id',
 		type: 'string',
 		default: undefined,
 		required: true,
@@ -33,10 +48,23 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Add Parameters',
-		name: 'parameters',
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: {
+			show: {
+				resource: ['bankboekingen'],
+				operation: ['getManyBankboekingen'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
 		type: 'collection',
-		placeholder: 'Add Parameter',
+		placeholder: 'Add Option',
 		default: {},
 		displayOptions: {
 			show: {
@@ -46,8 +74,8 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
-			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip' },
-			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
+			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
+			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
 	},
 	{
@@ -118,6 +146,19 @@ export const bankboekingenDescription: INodeProperties[] = [
 				],
 			},
 		],
+	},
+	{
+		displayName: 'Full Response',
+		name: 'fullResponse',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to return the full response object instead of only the data',
+		displayOptions: {
+			show: {
+				resource: ['bankboekingen'],
+				operation: ['getManyBankboekingen'],
+			},
+		},
 	},
 	{
 		displayName: 'Add Field',

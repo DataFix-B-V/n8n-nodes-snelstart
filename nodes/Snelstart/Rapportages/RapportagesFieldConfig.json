@@ -1,0 +1,21 @@
+{
+  "name": "Rapportages",
+  "getManyRapportagesKolommenbalans": {
+    "url": "/rapportages/kolommenbalans",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "start",
+      "end"
+    ]
+  },
+  "getManyRapportagesPeriodebalans": {
+    "url": "/rapportages/periodebalans",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "start",
+      "end"
+    ]
+  }
+}

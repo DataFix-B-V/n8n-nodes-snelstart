@@ -1,26 +1,26 @@
 {
   "name": "Documenten",
   "getDocumenten": {
-    "url": "/documenten/{id}",
+    "url": "/documenten/{documenten_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "documenten_id"
     ],
     "optionalUrlParams": []
   },
   "putDocumenten": {
-    "url": "/documenten/{id}",
+    "url": "/documenten/{documenten_id}",
     "method": "PUT",
     "urlParams": [
-      "id"
+      "documenten_id"
     ],
     "optionalUrlParams": []
   },
   "deleteDocumenten": {
-    "url": "/documenten/{id}",
+    "url": "/documenten/{documenten_id}",
     "method": "DELETE",
     "urlParams": [
-      "id"
+      "documenten_id"
     ],
     "optionalUrlParams": []
   },

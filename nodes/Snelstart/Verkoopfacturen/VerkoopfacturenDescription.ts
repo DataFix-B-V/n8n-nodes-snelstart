@@ -1,17 +1,19 @@
 import { INodeProperties } from 'n8n-workflow';
 
-export const inkoopfacturenDescription: INodeProperties[] = [
+export const verkoopfacturenDescription: INodeProperties[] = [
   {
     displayName: 'Operation',
     name: 'operation',
     type: 'options',
     noDataExpression: true,
-    default: 'getManyInkoopfacturen',
+    default: 'getManyVerkoopfacturen',
     options: [
-      { name: "Get Many Inkoopfacturen", value: "getManyInkoopfacturen", action: "Get many inkoopfacturen" }
+      { name: "Get Many Verkoopfacturen", value: "getManyVerkoopfacturen", action: "Get many verkoopfacturen" },
+      { name: "Get Verkoopfacturen", value: "getVerkoopfacturen", action: "Get verkoopfacturen" },
+      { name: "Get Verkoopfacturen Ubl", value: "getVerkoopfacturenUbl", action: "Get verkoopfacturen ubl" }
     ],
     displayOptions: {
-      show: { resource: ['inkoopfacturen'] },
+      show: { resource: ['verkoopfacturen'] },
     },
   },
 	{
@@ -22,8 +24,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		description: 'Whether to return all results or only up to a given limit',
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['verkoopfacturen'],
+				operation: ['getManyVerkoopfacturen'],
 			},
 		},
 	},
@@ -35,8 +37,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['bankboekingen'],
+				operation: ['getManyBankboekingen'],
 			},
 		},
 		options: [
@@ -44,5 +46,19 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
+	},
+	{
+		displayName: 'Verkoop Factuur ID',
+		name: 'verkoop_factuur_id',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The ID of the Verkoopfacturen to retrieve',
+		displayOptions: {
+			show: {
+				resource: ['verkoopfacturen'],
+				operation: ['getVerkoopfacturen', 'getVerkoopfacturenUbl'],
+			},
+		},
 	}
 ]

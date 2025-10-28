@@ -1,0 +1,17 @@
+{
+  "name": "Verkoopordersjablonen",
+  "getManyVerkoopordersjablonen": {
+    "url": "/verkoopordersjablonen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": []
+  },
+  "getVerkoopordersjablonen": {
+    "url": "/verkoopordersjablonen/{verkooporder_sjabloon_id}",
+    "method": "GET",
+    "urlParams": [
+      "verkooporder_sjabloon_id"
+    ],
+    "optionalUrlParams": []
+  }
+}

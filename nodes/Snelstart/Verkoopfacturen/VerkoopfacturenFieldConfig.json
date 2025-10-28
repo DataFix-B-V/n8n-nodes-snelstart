@@ -1,0 +1,29 @@
+{
+  "name": "Verkoopfacturen",
+  "getVerkoopfacturen": {
+    "url": "/verkoopfacturen/{verkoop_factuur_id}",
+    "method": "GET",
+    "urlParams": [
+      "verkoop_factuur_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getVerkoopfacturenUbl": {
+    "url": "/verkoopfacturen/{verkoop_factuur_id}/ubl",
+    "method": "GET",
+    "urlParams": [
+      "verkoop_factuur_id"
+    ],
+    "optionalUrlParams": []
+  },
+  "getManyVerkoopfacturen": {
+    "url": "/verkoopfacturen",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}

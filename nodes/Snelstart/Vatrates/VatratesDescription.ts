@@ -1,17 +1,18 @@
 import { INodeProperties } from 'n8n-workflow';
 
-export const inkoopfacturenDescription: INodeProperties[] = [
+export const vatratesDescription: INodeProperties[] = [
   {
     displayName: 'Operation',
     name: 'operation',
     type: 'options',
     noDataExpression: true,
-    default: 'getManyInkoopfacturen',
+    default: 'getManyVatrates',
     options: [
-      { name: "Get Many Inkoopfacturen", value: "getManyInkoopfacturen", action: "Get many inkoopfacturen" }
+      { name: "Get Many Vatrates", value: "getManyVatrates", action: "Get many vatrates" },
+      { name: "Get Vatrates", value: "getVatrates", action: "Get vatrates" }
     ],
     displayOptions: {
-      show: { resource: ['inkoopfacturen'] },
+      show: { resource: ['vatrates'] },
     },
   },
 	{
@@ -22,8 +23,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		description: 'Whether to return all results or only up to a given limit',
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['vatrates'],
+				operation: ['getManyVatrates'],
 			},
 		},
 	},
@@ -35,8 +36,8 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['inkoopfacturen'],
-				operation: ['getManyInkoopfacturen'],
+				resource: ['vatrates'],
+				operation: ['getManyVatrates'],
 			},
 		},
 		options: [
@@ -44,5 +45,20 @@ export const inkoopfacturenDescription: INodeProperties[] = [
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
+	},
+	{
+		displayName: 'VAT Rate ID',
+		name: 'vatrate_id',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The ID of the VAT Rate to retrieve',
+		displayOptions: {
+			show: {
+				resource: ['vatrates'],
+				operation: ['getVatrates'],
+			},
+		},
 	}
 ]
+

@@ -7,10 +7,10 @@
     "optionalUrlParams": []
   },
   "getArtikelomzetgroepen": {
-    "url": "/artikelomzetgroepen/{id}",
+    "url": "/artikelomzetgroepen/{artikel_omzetgroep_id}",
     "method": "GET",
     "urlParams": [
-      "id"
+      "artikel_omzetgroep_id"
     ],
     "optionalUrlParams": []
   }

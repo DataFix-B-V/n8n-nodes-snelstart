@@ -8,9 +8,10 @@ import {
 	NodeConnectionType,
 	NodeApiError,
 	NodeOperationError,
+	JsonObject,
 } from 'n8n-workflow';
 
-import { makeRequest, getBody, createRequestOptions } from './GenericFunctions';
+import { createRequestOptions, createQs, paginateRequest } from './GenericFunctions';
 import { artikelenDescription } from './Artikelen/ArtikelenDescription';
 import { actieprijzenDescription } from './Actieprijzen/ActieprijzenDescription';
 import { artikelomzetgroepenDescription } from './Artikelomzetgroepen/ArtikelomzetgroepenDescription';
@@ -32,7 +33,15 @@ import { kostenplaatsenDescription } from './Kostenplaatsen/KostenplaatsenDescri
 import { landenDescription } from './Landen/LandenDescription';
 import { memoriaalboekingenDescription } from './Memoriaalboekingen/MemoriaalboekingenDescription';
 import { offertesDescription } from './Offertes/OffertesDescription';
-
+import { prijsafsprakenDescription } from './Prijsafspraken/PrijsafsprakenDescription';
+import { rapportagesDescription } from './Rapportages/RapportagesDescription';
+import { relatiesDescription } from './Relaties/RelatiesDescription';
+import { vatratedefinitionsDescription } from './Vatratedefinitions/VatratedefinitionsDescription';
+import { vatratesDescription } from './Vatrates/VatratesDescription';
+import { verkoopboekingenDescription } from './Verkoopboekingen/VerkoopboekingenDescription';
+import { verkoopfacturenDescription } from './Verkoopfacturen/VerkoopfacturenDescription';
+import { verkoopordersDescription } from './Verkooporders/VerkoopordersDescription';
+import { verkoopordersjablonenDescription } from './Verkoopordersjablonen/VerkoopordersjablonenDescription';
 
 export class Snelstart implements INodeType {
 	description: INodeTypeDescription = {
@@ -83,7 +92,16 @@ export class Snelstart implements INodeType {
 					{ name: 'Kostenplaatsen', value: 'kostenplaatsen' },
 					{ name: 'Landen', value: 'landen' },
 					{ name: 'Memoriaalboekingen', value: 'memoriaalboekingen' },
-					{ name: 'Offertes', value: 'offertes' }
+					{ name: 'Offerte', value: 'offertes' },
+					{ name: 'Prijsafspraken', value: 'prijsafspraken' },
+					{ name: 'Rapportage', value: 'rapportages' },
+					{ name: 'Relatie', value: 'relaties' },
+					{ name: 'Vatrate', value: 'vatrates' },
+					{ name: 'Vatratedefinition', value: 'vatratedefinitions' },
+					{ name: 'Verkoopboekingen', value: 'verkoopboekingen' },
+					{ name: 'Verkoopfacturen', value: 'verkoopfacturen' },
+					{ name: 'Verkooporder', value: 'verkooporders' },
+					{ name: 'Verkoopordersjablonen', value: 'verkoopordersjablonen' },
 				],
 			},
 			...artikelenDescription,
@@ -106,14 +124,25 @@ export class Snelstart implements INodeType {
 			...landenDescription,
 			...kostenplaatsenDescription,
 			...memoriaalboekingenDescription,
-			...offertesDescription
+			...offertesDescription,
+			...prijsafsprakenDescription,
+			...rapportagesDescription,
+			...relatiesDescription,
+			...vatratesDescription,
+			...vatratedefinitionsDescription,
+			...verkoopboekingenDescription,
+			...verkoopfacturenDescription,
+			...verkoopordersDescription,
+			...verkoopordersjablonenDescription,
 		]
-		};
+	};
 
 // Return of all the input data
 async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+	const chunkSize = 10;
 	const resource = this.getNodeParameter('resource', 0) as string;
 	const operation = this.getNodeParameter('operation', 0) as string;
+	// const returnAll = this.getNodeParameter('returnAll', 0, false) as boolean;
 
 	// LOGGING EMPTY LINE 3x
 	this.logger?.info?.('');
@@ -127,19 +156,23 @@ async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 			throw new NodeOperationError(this.getNode(), '“Operation” is required for the selected resource.');
 		}
 
+	let responseData: IDataObject[] = [];
 	const items = this.getInputData();
-	const returnData: INodeExecutionData[] = [];
-
+	// Create request options for this resource/operation
+	let [endpoint, method, urlParams] = await createRequestOptions.call(this, resource, operation);
+	const options = this.getNodeParameter('options', 0, {}) as IDataObject;
+	const qs = await createQs.call(this, options);
 
 	for (let i = 0; i < items.length; i++) {
 			try {
-				// Create request options for this resource/operation
-				let [endpoint, method, urlParams, optionalUrlParams] = await createRequestOptions.call(this, resource, operation);
+				// Get the options parameter and create query string
+				try {
+				} catch (error) {
+					throw new NodeOperationError(this.getNode(), (error as Error)?.message ?? 'Unknown error', {
+						itemIndex: i,
+					});
+				}
 
-				// LOGGING
-				this.logger?.info?.(`urlParams: ${urlParams?.join(", ")}, optionalUrlParams: ${optionalUrlParams?.join(", ")}`);
-
-				// Replace required URL params; validate presence
 				for (const param of urlParams) {
 					const value = String(this.getNodeParameter(param, i, '')).trim();
 					if (!value) {
@@ -150,106 +183,18 @@ async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 					endpoint = endpoint.replace(`{${param}}`, value);
 				}
 
-				// Get the options from the node parameters
-				const parameters = this.getNodeParameter('parameters', i, {}) as IDataObject;
-
-				// Collect query params directly from parameters
-				const queryParams: string[] = [];
-				for (const [param, value] of Object.entries(parameters)) {
-					if (value != null && value !== '') {
-						queryParams.push(`${param}=${encodeURIComponent(String(value))}`);
-					}
-				}
-
-				// Collect optional URL params, outside of "parameters"
-				const externalParameters = ['instanceId'] as string[];
-				for (const param of externalParameters) {
-					const value = String(this.getNodeParameter(param, i, '')).trim();
-					if (value) {
-						queryParams.push(`${param}=${encodeURIComponent(value)}`);
-					}
-				}
-
-				// Append query string if we have any params
-				if (queryParams.length) {
-					endpoint += `?${queryParams.join('&')}`;
-				}
-
-				// LOGGING
-				this.logger?.info?.(`Parameters: ${JSON.stringify(parameters)}`);
-				this.logger?.info?.(`Final endpoint: ${endpoint}`);
-
-				// Build body from node parameters
-				let body: any;
-
-				// Special case for certain operations
-				if (resource === 'artikelen' && operation === 'putArtikelenCustomFields') {
-					body = [{
-						name: this.getNodeParameter('name', i, '') as string,
-						value: this.getNodeParameter('value', i, '') as string,
-					}];
-					this.logger?.info?.(`Body: ${JSON.stringify(body, null, 2)}`);
-				} else if (resource === 'bankafschriftbestanden' && operation === 'postBankafschriftbestand') {
-					body = [{
-						name: this.getNodeParameter('name', i, '') as string,
-						base64EncodedContent: this.getNodeParameter('base64EncodedContent', i, '') as string,
-					}];
-					this.logger?.info?.(`Body: ${JSON.stringify(body, null, 2)}`);
-				} else {
-					body = await getBody.call(this, resource, operation, i);
-				}
-
-				// External request → wrap failures with NodeApiError
-				let response: unknown;
+				// const top = options['$top'] || 0;
+				// Make the API request
 				try {
-					response = await makeRequest.call(
-						this,
-						method as IHttpRequestMethods,
-						endpoint,
-						body,
-					);
+					responseData = await paginateRequest.call(this, endpoint, method as IHttpRequestMethods, qs, chunkSize, resource, operation, i);
 				} catch (error) {
-					if (this.continueOnFail && this.continueOnFail()) {
-						returnData.push({
-							json: { error: (error as Error)?.message ?? error },
-							pairedItem: { item: i },
-						});
-						continue;
+						throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 					}
-					throw new NodeApiError(this.getNode(), { message: (error as Error)?.message ?? String(error) }, {
-						itemIndex: i,
-						message: 'Snelstart API request failed',
-					});
-				}
-
-				// Normalize response
-				if (Array.isArray(response)) {
-					for (const item of response) {
-						returnData.push({ json: item as IDataObject, pairedItem: { item: i } });
-					}
-				} else if (response && typeof response === 'object') {
-					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
-				} else {
-					returnData.push({ json: { message: response as string }, pairedItem: { item: i } });
-				}
 			} catch (error) {
-				if (this.continueOnFail && this.continueOnFail()) {
-					returnData.push({
-						json: { error: (error as Error)?.message ?? error },
-						pairedItem: { item: i },
-					});
-					continue;
-				}
-				// Ensure consistent formatting if something unexpected bubbles up
-				if (!(error instanceof NodeApiError) && !(error instanceof NodeOperationError)) {
-					throw new NodeOperationError(this.getNode(), (error as Error)?.message ?? 'Unknown error', {
-						itemIndex: i,
-					});
-				}
-				throw error;
+					throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
-		}
-
-		return [returnData];
+	}
+		return [this.helpers.returnJsonArray(responseData)];
 	}
 }
+

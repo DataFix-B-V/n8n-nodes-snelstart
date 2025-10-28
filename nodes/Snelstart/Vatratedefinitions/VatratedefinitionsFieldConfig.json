@@ -1,7 +1,7 @@
 {
-  "name": "Actieprijzen",
-  "getManyActieprijzen": {
-    "url": "/actieprijzen",
+  "name": "Vatratedefinitions",
+  "getManyVatratedefinitions": {
+    "url": "/vatratedefinitions",
     "method": "GET",
     "urlParams": [],
     "optionalUrlParams": [

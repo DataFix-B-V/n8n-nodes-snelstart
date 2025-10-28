@@ -19,8 +19,21 @@ export const kasboekingenDescription: INodeProperties[] = [
     },
   },
 	{
-		displayName: 'ID',
-		name: 'id',
+		displayName:
+			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		name: 'postNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['kasboekingen'],
+				operation: ['postManyKasboekingen', 'putKasboekingen'],
+			},
+		},
+	},
+	{
+		displayName: 'Kasboeking ID',
+		name: 'kasboeking_id',
 		type: 'string',
 		default: undefined,
 		required: true,
@@ -99,6 +112,19 @@ export const kasboekingenDescription: INodeProperties[] = [
 				],
 			},
 		],
+	},
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: {
+			show: {
+				resource: ['kasboekingen'],
+				operation: ['getManyKasboekingen'],
+			},
+		},
 	},
 	{
 		displayName: 'Add Field',
@@ -275,10 +301,10 @@ export const kasboekingenDescription: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Add Parameters',
-		name: 'parameters',
+		displayName: 'Options',
+		name: 'options',
 		type: 'collection',
-		placeholder: 'Add Parameter',
+		placeholder: 'Add Option',
 		default: {},
 		displayOptions: {
 			show: {
@@ -288,8 +314,8 @@ export const kasboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
-			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip' },
-			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
+			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
+			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
 	},
 ]

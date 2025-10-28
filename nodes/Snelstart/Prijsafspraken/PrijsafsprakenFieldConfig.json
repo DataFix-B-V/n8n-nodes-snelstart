@@ -1,0 +1,13 @@
+{
+  "name": "Prijsafspraken",
+  "getManyPrijsafspraken": {
+    "url": "/prijsafspraken",
+    "method": "GET",
+    "urlParams": [],
+    "optionalUrlParams": [
+      "$skip",
+      "$top",
+      "$filter"
+    ]
+  }
+}
