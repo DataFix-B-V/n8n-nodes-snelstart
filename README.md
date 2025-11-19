@@ -1,16 +1,17 @@
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
-# n8n-nodes-anthias
+# n8n-nodes-snelstart
 
-This is a custom node for n8n, a powerful workflow automation tool. It provides a simple way to connect your n8n workflows with the Anthias, a digital signage platform. By using this node, you can automate tasks related to your digital displays, content management, and player controls.
+This is a custom node for n8n, a powerful workflow automation tool. It provides an easy way to connect your n8n workflows with **SnelStart**, a widely used accounting and business administration platform. With this node, you can automate tasks involving your financial data, customer records, invoices, and more.
 
 ## What can you do with this node?
-The n8n-nodes-anthias node acts as a bridge between n8n and the Anthias API. It includes features like:
 
-- Retrieve information about your screens and players.
-- Update content on a display.
-- Change the schedule for a screen.
-- Trigger actions on a player, such as a reboot or a content refresh.
+The **n8n-nodes-snelstart** node acts as a bridge between n8n and the SnelStart API. It enables you to streamline and automate various accounting and administration processes, including:
+
+- Retrieve information about customers, products, invoices, and other financial records.
+- Create or update invoices, customers, or other data in SnelStart.
+- Synchronize data between SnelStart and other apps or databases.
+- Automate bookkeeping workflows such as invoice generation, payment tracking, or updating customer details.
 
 ## Developer
 ![logo](https://github.com/datafix-b-v/n8n-nodes-anthias/blob/master/images/logoDataFix.png)
