@@ -191,8 +191,6 @@ export async function makeRequest(
 	const normalizedExtra = endpoint ? `/${endpoint.replace(/^\/+/, '')}` : '';
 	const uri  = `${baseURL}${normalizedExtra}`;
 
-	this.logger.info(`Making request with Skip: ${qs['$skip'] } and Top: ${qs['$top'] }`);
-
 	const options: IHttpRequestOptions = {
 		method,
 		body,
@@ -276,7 +274,6 @@ export async function getBody(
 		// Add other node parameters except defaults and "fields" itself
 		const excludedFields = ['overwriteBaseUrl', 'resource', 'operation', 'parameters', 'fields', 'options', 'instanceId', 'returnAll'];
 		for (const [key, value] of Object.entries(this.getNode().parameters)) {
-			this.logger?.info?.(`Field: ${key} with value: ${JSON.stringify(value)}`);
 			if (excludedFields.includes(key)) continue;
 			if (value === '' || value === undefined) continue;
 			if (pathParamSet.has(key)) continue;
@@ -289,16 +286,9 @@ export async function getBody(
 
 		const body: IDataObject = { ...finalParameters };
 
-		// LOGGING the body
-		this.logger?.info?.(`Body: ${JSON.stringify(body, null, 2)}`);
-
 		return body;
 	} catch (error) {
-		this.logger?.error?.(
-			`Error in getBody for resource: ${resource}, operation: ${operation}`,
-			{ error: error },
-		);
-		throw new NodeOperationError(this.getNode(), toJsonObject(error), { itemIndex });
+			throw new NodeOperationError(this.getNode(), toJsonObject(error), { itemIndex });
 	}
 }
 

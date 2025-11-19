@@ -144,11 +144,6 @@ async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const operation = this.getNodeParameter('operation', 0) as string;
 	// const returnAll = this.getNodeParameter('returnAll', 0, false) as boolean;
 
-	// LOGGING EMPTY LINE 3x
-	this.logger?.info?.('');
-	this.logger?.info?.('');
-	this.logger?.info?.('');
-
 	if (!resource) {
 			throw new NodeOperationError(this.getNode(), '“Resource” is required.');
 		}
