@@ -206,6 +206,8 @@ export async function makeRequest(
 			options,
 		);
 
+		this.logger.info(res)
+
 		return res as SnelstartRequestResponse;
 	} catch (error) {
 		throw new NodeApiError(
@@ -229,6 +231,9 @@ const isPlainObject = (v: unknown): v is Record<string, unknown> =>
 function unwrapFC(value: unknown): unknown {
 		if (value == null) return value;
 
+		// Check if value is empty
+		if (value === '' || value === undefined) return undefined;
+
 		// Arrays: unwrap each element
 		if (Array.isArray(value)) return value.map(unwrapFC);
 
@@ -245,6 +250,32 @@ function unwrapFC(value: unknown): unknown {
 		}
 		return value;
 	}
+
+// Clean object recursively
+export async function clean(v: any): Promise<any> {
+  // remove null/undefined/""
+  if (v === null || v === undefined || v === '') return undefined;
+
+  // arrays: clean items, drop empty ones
+  if (Array.isArray(v)) {
+	const arr = await Promise.all(v.map(clean));
+	const filteredArr = arr.filter((x) => x !== undefined);
+	return filteredArr.length ? filteredArr : undefined;
+  }
+
+  // objects: clean properties, drop empty objects
+  if (typeof v === 'object') {
+	const obj: any = {};
+	for (const k of Object.keys(v)) {
+	  const cv = await clean(v[k]);
+	  if (cv !== undefined) obj[k] = cv;
+	}
+	return Object.keys(obj).length ? obj : undefined;
+  }
+
+  // keep numbers (including 0) and booleans (including false)
+  return v;
+}
 
 
 // Build request body from node parameters
@@ -264,9 +295,11 @@ export async function getBody(
 		const fields = this.getNodeParameter('fields', itemIndex, {}) as IDataObject;
 		if (fields && typeof fields === 'object') {
 			for (const [subKey, rawVal] of Object.entries(fields)) {
+				this.logger.info(`Key: ${subKey}: ${JSON.stringify(rawVal)}`);
 				const val = unwrapFC(rawVal);
+				this.logger.info(`Unwrap Key: ${subKey}: ${JSON.stringify(val)}`);
 				if (val !== '' && val !== undefined && !(Array.isArray(val) && val.length === 0) && !(typeof val === 'object' && val && Object.keys(val as object).length === 0)) {
-					finalParameters[subKey] = val as IDataObject;
+					finalParameters[subKey] = val;
 				}
 			}
 		}
@@ -285,8 +318,9 @@ export async function getBody(
 		}
 
 		const body: IDataObject = { ...finalParameters };
+		const cleanedBody = await clean(body);
 
-		return body;
+		return cleanedBody;
 	} catch (error) {
 			throw new NodeOperationError(this.getNode(), toJsonObject(error), { itemIndex });
 	}
@@ -315,6 +349,7 @@ export async function paginateRequest(
 ): Promise<IDataObject[]> {
 
 	const body = await getBody.call(this, resource, operation, itemIndex);
+	this.logger.info(`Body: ${JSON.stringify(body)}`);
 	const returnAll = this.getNodeParameter('returnAll', itemIndex, false) as boolean;
 
 	// If user sets $top, use it; otherwise default to chunkSize
