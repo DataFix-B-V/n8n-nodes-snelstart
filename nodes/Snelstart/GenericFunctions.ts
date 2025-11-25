@@ -277,7 +277,6 @@ export async function clean(v: any): Promise<any> {
   return v;
 }
 
-
 // Build request body from node parameters
 export async function getBody(
 	this: | IExecuteFunctions | IWebhookFunctions | IHookFunctions | ILoadOptionsFunctions,
@@ -286,6 +285,23 @@ export async function getBody(
 	itemIndex: number,
 ): Promise<IDataObject> {
 	try {
+		const bodyType = this.getNodeParameter('specifyBody', itemIndex, 'fields') as string;
+		if (bodyType === 'json') {
+			const rawBody = this.getNodeParameter('jsonBody', itemIndex, '') as string;
+			if (!rawBody || rawBody.trim() === '') {
+				return {};
+			}
+			let parsed: IDataObject;
+			try {
+				parsed = JSON.parse(rawBody);
+			} catch (error) {
+				throw new NodeOperationError(this.getNode(), `Invalid JSON: ${(error as Error).message}`, { itemIndex });
+			}
+			const cleaned = await clean(parsed);
+			return cleaned;
+		}
+
+
 		const urlParams = await createRequestOptions.call(this, resource, operation);
 		const pathParamSet = new Set<string>((urlParams?.[2] ?? []) as string[]);
 

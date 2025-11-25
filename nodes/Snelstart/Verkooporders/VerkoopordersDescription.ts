@@ -62,6 +62,23 @@ export const verkoopordersDescription: INodeProperties[] = [
       { displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
     ],
   },
+	// Dropdown where the user can choose between a body via json or via parameters
+	{
+		displayName: 'Specify Body',
+		name: 'specifyBody',
+		type: 'options',
+		options: [
+			{ name: 'JSON', value: 'json', description: 'Provide the body as raw JSON' },
+			{ name: 'Parameters', value: 'parameters', description: 'Provide the body via parameters' },
+		],
+		default: 'parameters',
+		displayOptions: {
+			show: {
+				resource: ['verkooporders'],
+				operation: ['postManyVerkooporders', 'putVerkooporders'],
+			},
+		},
+	},
   {
     displayName: 'Verkooporder ID',
     name: 'verkooporder_id',
@@ -76,6 +93,20 @@ export const verkoopordersDescription: INodeProperties[] = [
       },
     },
   },
+	{
+		displayName: 'JSON Body',
+		name: 'jsonBody',
+		type: 'json',
+		default: '',
+		description: 'Body as JSON object',
+		displayOptions: {
+			show: {
+				resource: ['verkooporders'],
+				operation: ['postManyVerkooporders', 'putVerkooporders'],
+				specifyBody: ['json'],
+			},
+		},
+	},
   {
     displayName: 'Date',
     name: 'datum',
@@ -87,6 +118,7 @@ export const verkoopordersDescription: INodeProperties[] = [
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
+				specifyBody: ['parameters'],
       },
     },
   },
@@ -103,6 +135,7 @@ export const verkoopordersDescription: INodeProperties[] = [
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
+				specifyBody: ['parameters'],
       },
     },
     options: [
@@ -144,6 +177,7 @@ export const verkoopordersDescription: INodeProperties[] = [
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
+				specifyBody: ['parameters'],
       },
     },
     options: [
