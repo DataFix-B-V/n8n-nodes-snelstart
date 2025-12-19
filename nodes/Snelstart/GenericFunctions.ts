@@ -206,8 +206,6 @@ export async function makeRequest(
 			options,
 		);
 
-		this.logger.info(res)
-
 		return res as SnelstartRequestResponse;
 	} catch (error) {
 		throw new NodeApiError(
@@ -311,9 +309,7 @@ export async function getBody(
 		const fields = this.getNodeParameter('fields', itemIndex, {}) as IDataObject;
 		if (fields && typeof fields === 'object') {
 			for (const [subKey, rawVal] of Object.entries(fields)) {
-				this.logger.info(`Key: ${subKey}: ${JSON.stringify(rawVal)}`);
 				const val = unwrapFC(rawVal);
-				this.logger.info(`Unwrap Key: ${subKey}: ${JSON.stringify(val)}`);
 				if (val !== '' && val !== undefined && !(Array.isArray(val) && val.length === 0) && !(typeof val === 'object' && val && Object.keys(val as object).length === 0)) {
 					finalParameters[subKey] = val;
 				}
@@ -365,7 +361,6 @@ export async function paginateRequest(
 ): Promise<IDataObject[]> {
 
 	const body = await getBody.call(this, resource, operation, itemIndex);
-	this.logger.info(`Body: ${JSON.stringify(body)}`);
 	const returnAll = this.getNodeParameter('returnAll', itemIndex, false) as boolean;
 
 	// If user sets $top, use it; otherwise default to chunkSize

@@ -137,32 +137,37 @@ export class Snelstart implements INodeType {
 		]
 	};
 
-// Return of all the input data
-async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-	const chunkSize = 10;
-	const resource = this.getNodeParameter('resource', 0) as string;
-	const operation = this.getNodeParameter('operation', 0) as string;
-	// const returnAll = this.getNodeParameter('returnAll', 0, false) as boolean;
+	// Return of all the input data
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+		const chunkSize = 10;
+		const resource = this.getNodeParameter('resource', 0) as string;
+		const operation = this.getNodeParameter('operation', 0) as string;
+		let returnData: INodeExecutionData[] = [];
 
-	if (!resource) {
+		if (!resource) {
 			throw new NodeOperationError(this.getNode(), '“Resource” is required.');
 		}
-	if (!operation) {
+		if (!operation) {
 			throw new NodeOperationError(this.getNode(), '“Operation” is required for the selected resource.');
 		}
 
-	let responseData: IDataObject[] = [];
-	const items = this.getInputData();
-	// Create request options for this resource/operation
-	let [endpoint, method, urlParams] = await createRequestOptions.call(this, resource, operation);
-	const options = this.getNodeParameter('options', 0, {}) as IDataObject;
-	const qs = await createQs.call(this, options);
+		let responseData: IDataObject[] = [];
+		const items = this.getInputData();
+		let [endpoint, method, urlParams] = await createRequestOptions.call(this, resource, operation);
+		const options = this.getNodeParameter('options', 0, {}) as IDataObject;
+		const qs = await createQs.call(this, options);
 
-	for (let i = 0; i < items.length; i++) {
+		for (let i = 0; i < items.length; i++) {
 			try {
-				// Get the options parameter and create query string
 				try {
 				} catch (error) {
+					if (this.continueOnFail()) {
+						returnData.push({
+							json: { error: (error as Error)?.message ?? 'Unknown error' },
+							pairedItem: { item: i },
+						});
+						continue;
+					}
 					throw new NodeOperationError(this.getNode(), (error as Error)?.message ?? 'Unknown error', {
 						itemIndex: i,
 					});
@@ -171,25 +176,48 @@ async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 				for (const param of urlParams) {
 					const value = String(this.getNodeParameter(param, i, '')).trim();
 					if (!value) {
-						throw new NodeOperationError(this.getNode(), `Missing required parameter: “${param}”`, {
+						const errMsg = `Missing required parameter: “${param}”`;
+						if (this.continueOnFail()) {
+							returnData.push({
+								json: { error: errMsg },
+								pairedItem: { item: i },
+							});
+							continue;
+						}
+						throw new NodeOperationError(this.getNode(), errMsg, {
 							itemIndex: i,
 						});
 					}
 					endpoint = endpoint.replace(`{${param}}`, value);
 				}
 
-				// const top = options['$top'] || 0;
-				// Make the API request
 				try {
 					responseData = await paginateRequest.call(this, endpoint, method as IHttpRequestMethods, qs, chunkSize, resource, operation, i);
-				} catch (error) {
-						throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+					for (const itemData of responseData) {
+						returnData.push({ json: itemData, pairedItem: { item: i } });
 					}
-			} catch (error) {
+				} catch (error) {
+					if (this.continueOnFail()) {
+						returnData.push({
+							json: { error: (error as Error)?.message ?? 'Unknown error' },
+							pairedItem: { item: i },
+						});
+						continue;
+					}
 					throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+				}
+			} catch (error) {
+				if (this.continueOnFail()) {
+					returnData.push({
+						json: { error: (error as Error)?.message ?? 'Unknown error' },
+						pairedItem: { item: i },
+					});
+					continue;
+				}
+				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
-	}
-		return [this.helpers.returnJsonArray(responseData)];
+		}
+		return [returnData];
 	}
 }
 
