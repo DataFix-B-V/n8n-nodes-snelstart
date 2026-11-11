@@ -1,4 +1,3 @@
-
 import { INodeProperties } from 'n8n-workflow';
 
 export const verkoopordersDescription: INodeProperties[] = [
@@ -164,8 +163,8 @@ export const verkoopordersDescription: INodeProperties[] = [
       },
     },
     options: [
-      { displayName: 'Process Status', name: 'procesStatus', type: 'string', default: 'Order', description: 'Status of the sales order', },
-      { displayName: 'ID', name: 'id', type: 'string', default: '', description: 'Public identifier (GUID)',  },
+      { displayName: 'ID', name: 'id', type: 'string', default: '', description: 'Public identifier (GUID)' },
+      { displayName: 'Process Status', name: 'procesStatus', type: 'string', default: 'Order', description: 'Status of the sales order' },
     ],
   },
   {
@@ -216,6 +215,7 @@ export const verkoopordersDescription: INodeProperties[] = [
             name: 'values',
             displayName: 'Delivery Address',
             values: [
+              { displayName: 'City', name: 'plaats', type: 'string', default: undefined },
               { displayName: 'Contact Person', name: 'contactpersoon', type: 'string', default: undefined },
               {
                 displayName: 'Country',
@@ -234,7 +234,6 @@ export const verkoopordersDescription: INodeProperties[] = [
                   },
                 ],
               },
-              { displayName: 'City', name: 'plaats', type: 'string', default: undefined },
               { displayName: 'Postal Code', name: 'postcode', type: 'string', default: undefined },
               { displayName: 'Street', name: 'straat', type: 'string', default: undefined },
             ],
@@ -295,6 +294,7 @@ export const verkoopordersDescription: INodeProperties[] = [
             name: 'values',
             displayName: 'Invoice Address',
             values: [
+              { displayName: 'City', name: 'plaats', type: 'string', default: undefined },
               { displayName: 'Contact Person', name: 'contactpersoon', type: 'string', default: undefined },
               {
                 displayName: 'Country',
@@ -313,7 +313,6 @@ export const verkoopordersDescription: INodeProperties[] = [
                   },
                 ],
               },
-              { displayName: 'City', name: 'plaats', type: 'string', default: undefined },
               { displayName: 'Postal Code', name: 'postcode', type: 'string', default: undefined },
               { displayName: 'Street', name: 'straat', type: 'string', default: undefined },
             ],
@@ -332,9 +331,9 @@ export const verkoopordersDescription: INodeProperties[] = [
         default: 'InBehandeling',
         description: 'Processing status of the sales order',
         options: [
+          { name: 'Completed', value: 'Uitgevoerd' },
           { name: 'In Progress', value: 'InBehandeling' },
           { name: 'Service', value: 'Service' },
-          { name: 'Completed', value: 'Uitgevoerd' },
         ],
       },
       { displayName: 'Payment Reference', name: 'betalingskenmerk', type: 'string', default: undefined, description: 'The payment reference of the sales order' },
@@ -347,9 +346,9 @@ export const verkoopordersDescription: INodeProperties[] = [
         options: [
           { name: 'Collection Note', value: 'Afhaalbon' },
           { name: 'Confirmation', value: 'Bevestiging' },
-          { name: 'Quotation', value: 'Offerte' },
           { name: 'Order', value: 'Order' },
           { name: 'Packing Slip', value: 'Pakbon' },
+          { name: 'Quotation', value: 'Offerte' },
           { name: 'Work Order', value: 'Werkbon' },
         ],
       },

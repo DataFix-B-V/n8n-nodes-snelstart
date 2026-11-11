@@ -37,8 +37,8 @@ export const verkoopfacturenDescription: INodeProperties[] = [
     default: {},
     displayOptions: {
       show: {
-        resource: ['bankboekingen'],
-        operation: ['getManyBankboekingen'],
+        resource: ['verkoopfacturen'],
+        operation: ['getManyVerkoopfacturen'],
       },
     },
     options: [

@@ -1,4 +1,3 @@
-
 import { INodeProperties } from 'n8n-workflow';
 
 export const verkoopboekingenDescription: INodeProperties[] = [
@@ -9,10 +8,10 @@ export const verkoopboekingenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getVerkoopboekingen',
     options: [
+      { name: "Delete Sales Booking", value: "deleteVerkoopboekingen", action: "Delete a sales booking", description: "Delete a specific sales booking (Verkoopboeking) from SnelStart" },
       { name: "Get Sales Booking", value: "getVerkoopboekingen", action: "Get a sales booking", description: "Retrieve a specific sales booking (Verkoopboeking) from SnelStart" },
       { name: "Post Many Sales Bookings", value: "postManyVerkoopboekingen", action: "Post many sales bookings", description: "Create multiple sales bookings (Verkoopboekingen) in SnelStart" },
-      { name: "Put Sales Booking", value: "putVerkoopboekingen", action: "Update a sales booking", description: "Update an existing sales booking (Verkoopboeking) in SnelStart" },
-      { name: "Delete Sales Booking", value: "deleteVerkoopboekingen", action: "Delete a sales booking", description: "Delete a specific sales booking (Verkoopboeking) from SnelStart" }
+      { name: "Put Sales Booking", value: "putVerkoopboekingen", action: "Update a sales booking", description: "Update an existing sales booking (Verkoopboeking) in SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['verkoopboekingen'] },
@@ -279,8 +278,8 @@ export const verkoopboekingenDescription: INodeProperties[] = [
             displayName: 'Authorization',
             values: [
               { displayName: 'Date', name: 'datum', type: 'dateTime', default: undefined },
-              { displayName: 'Reference', name: 'kenmerk', type: 'string', default: undefined },
               { displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined },
+              { displayName: 'Reference', name: 'kenmerk', type: 'string', default: undefined },
             ],
           },
         ],

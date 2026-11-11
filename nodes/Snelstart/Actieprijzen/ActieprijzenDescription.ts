@@ -1,3 +1,4 @@
+
 import { INodeProperties } from 'n8n-workflow';
 
 export const actieprijzenDescription: INodeProperties[] = [
@@ -40,9 +41,9 @@ export const actieprijzenDescription: INodeProperties[] = [
       },
     },
     options: [
+      { displayName: 'Filter', name: '$filter', type: 'string', default: '', description: 'OData filter string to filter the results' },
       { displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'Number of records to skip from the start', displayOptions: { show: { '/returnAll': [false] }, }, },
       { displayName: 'Top', name: '$top', type: 'number', default: 100, description: 'Maximum number of records to return', displayOptions: { show: { '/returnAll': [false] }, }, },
-      { displayName: 'Filter', name: '$filter', type: 'string', default: '', description: 'OData filter string to filter the results' },
     ],
   }
 ]
