@@ -8,7 +8,7 @@ export const dagboekenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyDagboeken',
     options: [
-      { name: "Get Many Dagboeken", value: "getManyDagboeken", action: "Get many dagboeken" }
+      { name: "Get Many Journals", value: "getManyDagboeken", action: "Get many journals", description: "Retrieve multiple journals (Dagboeken) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['dagboeken'] },

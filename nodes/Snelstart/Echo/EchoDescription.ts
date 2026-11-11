@@ -8,7 +8,7 @@ export const echoDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyEchoInput',
     options: [
-      { name: "Get Many Echo Input", value: "getManyEchoInput", action: "Get many echo input" }
+      { name: "Get Many Echo Inputs", value: "getManyEchoInput", action: "Get many echo inputs", description: "Retrieve multiple echoed inputs from the SnelStart API" }
     ],
     displayOptions: {
       show: { resource: ['echo'] },

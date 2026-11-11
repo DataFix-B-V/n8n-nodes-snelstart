@@ -8,17 +8,17 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getMemoriaalboekingen',
     options: [
-      { name: "Delete Memoriaalboekingen", value: "deleteMemoriaalboekingen", action: "Delete memoriaalboekingen" },
-			{ name: "Get Memoriaalboekingen", value: "getMemoriaalboekingen", action: "Get memoriaalboekingen" },
-			{ name: "Post Many Memoriaalboekingen", value: "postManyMemoriaalboekingen", action: "Post many memoriaalboekingen" },
-			{ name: "Put Memoriaalboekingen", value: "putMemoriaalboekingen", action: "Put memoriaalboekingen" }
+      { name: "Delete Journal Entry", value: "deleteMemoriaalboekingen", action: "Delete journal entry", description: "Delete a journal entry (Memoriaalboeking) from SnelStart" },
+			{ name: "Get Journal Entry", value: "getMemoriaalboekingen", action: "Get journal entry", description: "Retrieve a journal entry (Memoriaalboeking) from SnelStart" },
+			{ name: "Post Many Journal Entries", value: "postManyMemoriaalboekingen", action: "Post many journal entries", description: "Post multiple journal entries (Memoriaalboekingen) to SnelStart" },
+			{ name: "Put Journal Entry", value: "putMemoriaalboekingen", action: "Put journal entry", description: "Put a journal entry (Memoriaalboeking) in SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['memoriaalboekingen'] },
     },
   },
 	{
-		displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		displayName: 'Heads-up: Not all POST and PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
 		name: 'postNotice',
 		type: 'notice',
 		default: '',
@@ -30,12 +30,12 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Memoriaal Boekingen ID',
+		displayName: 'Journal Entry ID',
 		name: 'memoriaal_boekingen_id',
 		type: 'string',
 		default: '',
 		required: true,
-		description: 'The ID of the memoriaalboekingen',
+		description: 'The unique identifier of the journal entry (Memoriaalboeking)',
 		displayOptions: {
 			show: {
 				resource: ['memoriaalboekingen'],
@@ -48,7 +48,7 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 		name: 'datum',
 		type: 'dateTime',
 		default: undefined,
-		description: 'The date of the memoriaalboekingen is created or last modified',
+		description: 'The date (Datum) of the journal entry (Memoriaalboeking)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -58,12 +58,12 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Diary',
+		displayName: 'Journal',
 		name: 'dagboek',
 		type: 'fixedCollection',
 		default: {},
-		placeholder: 'Add Diary',
-		description: 'The diary of the memoriaalboekingen reference',
+		placeholder: 'Add Journal',
+		description: 'The journal (Dagboek) associated with the journal entry (Memoriaalboeking)',
 		required: true,
 		typeOptions: { multipleValues: false },
 		displayOptions: {
@@ -74,12 +74,12 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Diary',
+				displayName: 'Journal',
 				name: 'values',
 				default: {},
 				values: [
-					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the diary the bankboekingen belongs to' },
-					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the diary the bankboekingen belongs to' },
+					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the journal (Dagboek) associated with the journal entry (Memoriaalboeking)' },
+					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the journal (Dagboek) associated with the journal entry (Memoriaalboeking)' },
 				],
 			},
 		],
@@ -90,7 +90,7 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 		type: 'collection',
 		default: {},
 		placeholder: 'Add Field',
-		description: 'Add additional fields for the memoriaalboekingen',
+		description: 'Add additional fields to the journal entry (Memoriaalboeking)',
 		displayOptions: {
 			show: {
 				resource: ['memoriaalboekingen'],
@@ -98,22 +98,22 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Book Piece', name: 'boekstuk', type: 'string', default: undefined, description: 'The book piece number of the memoriaalboekingen' },
-			{ displayName: 'Changed By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether this memoriaalboekingen has been modified by the accountant' },
-			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the memoriaalboekingen' },
-			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the memoriaalboekingen' },
-			{ displayName: 'Marking', name: 'markering', type: 'boolean', default: false, description: 'Whether this memoriaalboekingen deserves special attention; in SnelStart this is visually emphasized' },
+			{ displayName: 'Document Number', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number (Boekstuk) of the journal entry (Memoriaalboeking)' },
+			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the journal entry (Memoriaalboeking) was modified by an accountant (Gewijzigd door accountant)' },
+			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the journal entry (Memoriaalboeking)' },
+			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the journal entry (Memoriaalboeking)' },
+			{ displayName: 'Mark for Attention', name: 'markering', type: 'boolean', default: false, description: 'Whether the journal entry (Memoriaalboeking) is marked (Markering) as requiring extra attention in SnelStart' },
 			{
-				displayName: 'Memoriaal Booking Rules',
+				displayName: 'Journal Entry Posting Lines',
 				name: 'memoriaalBoekingsRegels',
 				type: 'fixedCollection',
-				placeholder: 'Add Memoriaal Booking Rule',
+				placeholder: 'Add Journal Entry Posting Line',
 				typeOptions: { multipleValues: true },
 				default: {},
-				description: 'The memoriaal booking rules of the memoriaalboekingen',
+				description: 'The posting lines (Memoriaalboekingsregels) associated with the journal entry (Memoriaalboeking)',
 				options: [
 					{
-						displayName: 'Memoriaal Booking Rule',
+						displayName: 'Journal Entry Posting Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
@@ -125,33 +125,33 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 								options: [
 									{
 										name: 'values',
-										displayName: 'Cost Center (Kostenplaats)',
+										displayName: 'Cost Center',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the cost center the memoriaal booking rule belongs to' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the cost center the memoriaal booking rule belongs to' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the cost center (Kostenplaats) associated with the journal entry posting line' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the cost center (Kostenplaats) associated with the journal entry posting line' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: 0, required: true, description: 'The credit amount of the memoriaal booking rule' },
-							{ displayName: 'Debit', name: 'debet', type: 'number', default: 0, required: true, description: 'The debit amount of the memoriaal booking rule' },
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description of the memoriaal booking rule' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: 0, required: true, description: 'The credit amount (Creditbedrag) of the journal entry posting line' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: 0, required: true, description: 'The debit amount (Debetbedrag) of the journal entry posting line' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description (Omschrijving) of the journal entry posting line' },
 							{
-								displayName: 'General Ledger',
+								displayName: 'General Ledger Account',
 								name: 'grootboek',
 								type: 'fixedCollection',
 								default: {},
-								placeholder: 'Add General Ledger',
-								description: 'The general ledger of the memoriaal booking rule reference',
+								placeholder: 'Add General Ledger Account',
+								description: 'The general ledger account (Grootboek) associated with the journal entry posting line',
 								required: true,
 								typeOptions: { multipleValues: false },
 								options: [
 									{
 										name: 'values',
-										displayName: 'General Ledger (Grootboek)',
+										displayName: 'General Ledger Account',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the general ledger the memoriaal booking rule belongs to' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the general ledger the memoriaal booking rule belongs to' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the general ledger account (Grootboek) associated with the journal entry posting line' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the general ledger account (Grootboek) associated with the journal entry posting line' },
 										],
 									},
 								],
@@ -160,85 +160,84 @@ export const memoriaalboekingenDescription: INodeProperties[] = [
 					},
 				],
 			},
-			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the memoriaalboekingen was created or last modified' },
+			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the journal entry (Memoriaalboeking) was created or last modified' },
 			{
-				displayName: 'Purchase Booking Rules',
+				displayName: 'Purchase Entry Posting Lines',
 				name: 'inkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
-				placeholder: 'Add Purchase Booking Rule',
+				placeholder: 'Add Purchase Entry Posting Line',
 				typeOptions: { multipleValues: true },
 				default: {},
-				description: 'The purchase booking rules of the memoriaalboekingen',
+				description: 'The purchase entry posting lines (Inkoopboekingboekingsregels) associated with the journal entry (Memoriaalboeking)',
 				options: [
 					{
-						displayName: 'Purchase Booking Rule',
+						displayName: 'Purchase Entry Posting Line',
 						name: 'values',
 						values: [
 							{
-								displayName: 'Booking',
+								displayName: 'Entry',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
-								placeholder: 'Add Booking',
-								description: 'The booking of the purchase booking rule reference',
+								placeholder: 'Add Entry',
+								description: 'The purchase entry (Inkoopboeking) associated with the posting line',
 								required: true,
 								options: [
 									{
 										name: 'values',
-										displayName: 'Booking',
+										displayName: 'Entry',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the booking the purchase booking rule belongs to' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the booking the purchase booking rule belongs to' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the purchase entry (Inkoopboeking) associated with the posting line' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the purchase entry (Inkoopboeking) associated with the posting line' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description of the purchase booking rule' },
-							{ displayName: 'Amount', name: 'bedrag', type: 'number', default: 0, required: true, description: 'The amount of the purchase booking rule' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description (Omschrijving) of the purchase entry posting line' },
+							{ displayName: 'Amount', name: 'bedrag', type: 'number', default: 0, required: true, description: 'The amount (Bedrag) of the purchase entry posting line' },
 						],
 					},
 				],
 			},
 			{
-				displayName: 'Sales Booking Rules',
+				displayName: 'Sales Entry Posting Lines',
 				name: 'verkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
-				placeholder: 'Add Sales Booking Rule',
+				placeholder: 'Add Sales Entry Posting Line',
 				typeOptions: { multipleValues: true },
 				default: {},
-				description: 'The sales booking rules of the memoriaalboekingen',
+				description: 'The sales entry posting lines (Verkoopboekingboekingsregels) associated with the journal entry (Memoriaalboeking)',
 				options: [
 					{
-						displayName: 'Sales Booking Rule',
+						displayName: 'Sales Entry Posting Line',
 						name: 'values',
 						values: [
 							{
-								displayName: 'Booking',
+								displayName: 'Entry',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
-								placeholder: 'Add Booking',
-								description: 'The booking of the sales booking rule reference',
+								placeholder: 'Add Entry',
+								description: 'The sales entry (Verkoopboeking) associated with the posting line',
 								required: true,
 								options: [
 									{
 										name: 'values',
-										displayName: 'Booking',
+										displayName: 'Entry',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the booking the sales booking rule belongs to' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the booking the sales booking rule belongs to' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the sales entry (Verkoopboeking) associated with the posting line' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the sales entry (Verkoopboeking) associated with the posting line' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description of the sales booking rule' },
-							{ displayName: 'Amount', name: 'bedrag', type: 'number', default: 0, required: true, description: 'The amount of the sales booking rule' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, required: true, description: 'The description (Omschrijving) of the sales entry posting line' },
+							{ displayName: 'Amount', name: 'bedrag', type: 'number', default: 0, required: true, description: 'The amount (Bedrag) of the sales entry posting line' },
 						],
 					},
 				],
 			},
-			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the memoriaalboekingen' },
+			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the journal entry (Memoriaalboeking)' },
 		],
 	},
 ];
-

@@ -8,19 +8,19 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		noDataExpression: true,
 		default: 'getInkoopboekingen',
 		options: [
-			{ name: "Delete Inkoopboekingen", value: "deleteInkoopboekingen", action: "Delete inkoopboekingen" },
-			{ name: "Get Inkoopboekingen", value: "getInkoopboekingen", action: "Get inkoopboekingen" },
-			{ name: "Get Many Inkoopboekingen Get Create From Attachment Status", value: "getManyInkoopboekingenGetCreateFromAttachmentStatus", action: "Get many inkoopboekingen get create from attachment status" },
-			{ name: "Post Many Inkoopboekingen", value: "postManyInkoopboekingen", action: "Post many inkoopboekingen" },
-			{ name: "Post Many Inkoopboekingen Create From Attachment", value: "postManyInkoopboekingenCreateFromAttachment", action: "Post many inkoopboekingen create from attachment" },
-			{ name: "Post Many Inkoopboekingen Ubl", value: "postManyInkoopboekingenUbl", action: "Post many inkoopboekingen ubl" },
-			{ name: "Put Inkoopboekingen", value: "putInkoopboekingen", action: "Put inkoopboekingen" }
+			{ name: "Delete Purchase Entry", value: "deleteInkoopboekingen", action: "Delete purchase entry", description: "Delete a purchase entry (Inkoopboeking) from SnelStart" },
+			{ name: "Get Purchase Entry", value: "getInkoopboekingen", action: "Get purchase entry", description: "Retrieve a purchase entry (Inkoopboeking) from SnelStart" },
+			{ name: "Get Purchase Entry Attachment Creation Status", value: "getManyInkoopboekingenGetCreateFromAttachmentStatus", action: "Get purchase entry attachment creation status", description: "Retrieve the status of a purchase entry (Inkoopboeking) being created from an attachment in SnelStart" },
+			{ name: "Post Many Purchase Entries", value: "postManyInkoopboekingen", action: "Post many purchase entries", description: "Post multiple purchase entries (Inkoopboekingen) to SnelStart" },
+			{ name: "Create Purchase Entry From Attachment", value: "postManyInkoopboekingenCreateFromAttachment", action: "Create purchase entry from attachment", description: "Create a purchase entry (Inkoopboeking) from an uploaded attachment in SnelStart" },
+			{ name: "Post Purchase Entry UBL", value: "postManyInkoopboekingenUbl", action: "Post purchase entry UBL", description: "Post a purchase entry (Inkoopboeking) using a UBL invoice to SnelStart" },
+			{ name: "Put Purchase Entry", value: "putInkoopboekingen", action: "Put purchase entry", description: "Put a purchase entry (Inkoopboeking) in SnelStart" }
   	],
 		displayOptions: { show: { resource: ['inkoopboekingen'] } },
 	},
 	{
 		displayName:
-			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+			'Heads-up: Not all POST and PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
 		name: 'postNotice',
 		type: 'notice',
 		default: '',
@@ -32,11 +32,11 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Inkoopboeking ID',
+		displayName: 'Purchase Entry ID',
 		name: 'inkoopboeking_id',
 		type: 'string',
 		default: undefined,
-		description: 'Unique identifier for the inkoopboeking (GUID)',
+		description: 'The unique identifier of the purchase entry (Inkoopboeking) as System.Guid',
 		required: true,
 		displayOptions: {
 			show: {
@@ -50,7 +50,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		name: 'factuurdatum',
 		type: 'dateTime',
 		default: undefined,
-		description: 'The date of the invoice, this will also be the date that the entry is made in the administration',
+		description: 'The invoice date (Factuurdatum), which is also used as the date the purchase entry (Inkoopboeking) is recorded in the administration',
 		required: true,
 		displayOptions: {
 			show: {
@@ -64,7 +64,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		name: 'factuurnummer',
 		type: 'string',
 		default: undefined,
-		description: 'The invoice number as stated on the invoice',
+		description: 'The invoice number (Factuurnummer) as stated on the purchase invoice',
 		required: true,
 		displayOptions: {
 			show: {
@@ -80,7 +80,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		placeholder: 'Add Supplier',
 		typeOptions: { multipleValues: false },
 		default: {},
-		description: 'The supplier of the invoice',
+		description: 'The supplier (Leverancier) associated with the purchase invoice',
 		required: true,
 		displayOptions: {
 			show: {
@@ -93,20 +93,20 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 				displayName: 'Rule',
 				name: 'values',
 				values: [
-					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Unique identifier for the relatie (GUID)', required: true },
-					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the relatie', required: true },
+					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the relation (Relatie) as System.Guid', required: true },
+					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the relation (Relatie)', required: true },
 				],
 			},
 		],
 	},
 	{
-		displayName: 'Booking Rules',
+		displayName: 'Posting Lines',
 		name: 'boekingsregels',
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: true },
 		default: {},
-		placeholder: 'Add Booking Rule',
-		description: 'The booking rules of the inkoopboeking',
+		placeholder: 'Add Posting Line',
+		description: 'The posting lines (Boekingsregels) associated with the purchase entry (Inkoopboeking)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -116,7 +116,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Rule',
+				displayName: 'Line',
 				name: 'values',
 				values: [
 					{
@@ -137,13 +137,13 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 					},
 					{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined },
 					{
-						displayName: 'Ledger',
+						displayName: 'General Ledger Account',
 						name: 'grootboek',
 						type: 'fixedCollection',
 						default: {},
 						options: [
 							{
-								displayName: 'Ledger',
+								displayName: 'General Ledger Account',
 								name: 'values',
 								values: [
 									{ displayName: 'ID', name: 'id', type: 'string', default: undefined },
@@ -152,7 +152,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 							},
 						],
 					},
-					{ displayName: 'VAT Amount', name: 'bedrag', type: 'number', default: 0 },
+					{ displayName: 'Amount', name: 'bedrag', type: 'number', default: 0 },
 					{ displayName: 'VAT Type', name: 'btwSoort', type: 'string', default: undefined },
 				],
 			},
@@ -171,8 +171,8 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Accounting Document', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number of the purchase entry' },
-			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the inkoopboeking' },
+			{ displayName: 'Accounting Document', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number (Boekstuk) of the purchase entry (Inkoopboeking)' },
+			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the purchase entry (Inkoopboeking)' },
 			{
 				displayName: 'Documents',
 				name: 'documents',
@@ -180,7 +180,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 				placeholder: 'Add Document',
 				typeOptions: { multipleValues: true },
 				default: {},
-				description: 'The documents linked to the inkoopboeking',
+				description: 'The documents linked to the purchase entry (Inkoopboeking)',
 				options: [
 					{
 						displayName: 'Document',
@@ -195,12 +195,12 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 					},
 				],
 			},
-			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Unique identifier for the inkoopboeking (GUID)' },
-			{ displayName: 'Invoice Amount', name: 'factuurbedrag', type: 'number', default: undefined, description: 'The total amount of the invoice including VAT' },
-			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the entry was modified by an accountant' },
-			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time of the last modification of the inkoopboeking' },
-			{ displayName: 'Require Attention', name: 'markering', type: 'boolean', default: false, description: 'Whether the entry requires attention' },
-			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the inkoopboeking' },
+			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the purchase entry (Inkoopboeking) as System.Guid' },
+			{ displayName: 'Invoice Amount', name: 'factuurbedrag', type: 'number', default: undefined, description: 'The total invoice amount (Factuurbedrag), including VAT (Btw)' },
+			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the purchase entry (Inkoopboeking) was modified by an accountant (Gewijzigd door accountant)' },
+			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the purchase entry (Inkoopboeking) was last modified' },
+			{ displayName: 'Require Attention', name: 'markering', type: 'boolean', default: false, description: 'Whether the purchase entry (Inkoopboeking) is marked (Markering) as requiring attention' },
+			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the purchase entry (Inkoopboeking)' },
 			{
 				displayName: 'VAT',
 				name: 'btw',
@@ -208,7 +208,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 				placeholder: 'Add VAT',
 				typeOptions: { multipleValues: true },
 				default: {},
-				description: 'The VAT details of the inkoopboeking',
+				description: 'The VAT details (Btw) associated with the purchase entry (Inkoopboeking)',
 				options: [
 					{
 						displayName: 'VAT Detail',
@@ -223,11 +223,11 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Filename',
+		displayName: 'File Name',
 		name: 'fileName',
 		type: 'string',
 		default: undefined,
-		description: 'Name of the uploaded file',
+		description: 'The name of the uploaded file',
 		displayOptions: {
 			show: {
 				resource: ['inkoopboekingen'],
@@ -241,7 +241,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		type: 'string',
 		typeOptions: { alwaysOpenEditWindow: true },
 		default: undefined,
-		description: 'Base64 encoded file content',
+		description: 'The Base64-encoded content of the uploaded file',
 		displayOptions: {
 			show: {
 				resource: ['inkoopboekingen'],
@@ -254,7 +254,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		name: 'instanceId',
 		type: 'string',
 		default: undefined,
-		description: 'The instance ID of the UBL invoice',
+		description: 'The instance identifier used to check the status of a purchase entry (Inkoopboeking) created from an attachment',
 		displayOptions: {
 			show: {
 				resource: ['inkoopboekingen'],
@@ -268,7 +268,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		type: 'string',
 		typeOptions: { alwaysOpenEditWindow: true },
 		default: undefined,
-		description: 'Base64 encoded PDF file content',
+		description: 'The Base64-encoded content of the PDF file',
 		displayOptions: {
 			show: {
 				resource: ['inkoopboekingen'],
@@ -281,7 +281,7 @@ export const inkoopboekingenDescription: INodeProperties[] = [
 		name: 'forcePersist',
 		type: 'boolean',
 		default: false,
-		description: 'Whether to ignore validation warnings',
+		description: 'Whether to ignore validation warnings when saving the purchase entry',
 		displayOptions: {
 			show: {
 				resource: ['inkoopboekingen'],

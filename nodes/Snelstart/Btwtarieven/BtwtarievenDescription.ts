@@ -8,7 +8,7 @@ export const btwtarievenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyBtwtarieven',
     options: [
-      { name: "Get Many Btwtarieven", value: "getManyBtwtarieven", action: "Get many btwtarieven" }
+      { name: "Get Many VAT Rates", value: "getManyBtwtarieven", action: "Get many VAT rates", description: "Retrieve multiple VAT rates (Btw-tarieven) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['btwtarieven'] },

@@ -8,23 +8,23 @@ export const relatiesDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyRelaties',
     options: [
-      { name: "Delete Relaties", value: "deleteRelaties", action: "Delete relaties" },
-      { name: "Get Many Relaties", value: "getManyRelaties", action: "Get many relaties" },
-      { name: "Get Relaties", value: "getRelaties", action: "Get relaties" },
-      { name: "Get Relaties Custom Fields", value: "getRelatiesCustomFields", action: "Get relaties custom fields" },
-      { name: "Get Relaties Doorlopendeincassomachtigingen", value: "getRelatiesDoorlopendeincassomachtigingen", action: "Get relaties doorlopendeincassomachtigingen" },
-      { name: "Get Relaties Inkoopboekingen", value: "getRelatiesInkoopboekingen", action: "Get relaties inkoopboekingen" },
-      { name: "Get Relaties Verkoopboekingen", value: "getRelatiesVerkoopboekingen", action: "Get relaties verkoopboekingen" },
-      { name: "Post Many Relaties", value: "postManyRelaties", action: "Post many relaties" },
-      { name: "Put Relaties", value: "putRelaties", action: "Put relaties" },
-      { name: "Put Relaties Custom Fields", value: "putRelatiesCustomFields", action: "Put relaties custom fields" },
+      { name: "Delete Relation", value: "deleteRelaties", action: "Delete relation", description: "Delete a relation (Relatie) from SnelStart" },
+      { name: "Get Many Relations", value: "getManyRelaties", action: "Get many relations", description: "Retrieve multiple relations (Relaties) from SnelStart" },
+      { name: "Get Relation", value: "getRelaties", action: "Get relation", description: "Retrieve a relation (Relatie) from SnelStart" },
+      { name: "Get Relation Custom Fields", value: "getRelatiesCustomFields", action: "Get relation custom fields", description: "Retrieve custom fields (Extra velden) of a relation (Relatie) from SnelStart" },
+      { name: "Get Relation Recurring Direct Debit Mandates", value: "getRelatiesDoorlopendeincassomachtigingen", action: "Get relation recurring direct debit mandates", description: "Retrieve recurring direct debit mandates (Doorlopende incassomachtigingen) of a relation (Relatie) from SnelStart" },
+      { name: "Get Relation Purchase Entries", value: "getRelatiesInkoopboekingen", action: "Get relation purchase entries", description: "Retrieve purchase entries (Inkoopboekingen) associated with a relation (Relatie) from SnelStart" },
+      { name: "Get Relation Sales Entries", value: "getRelatiesVerkoopboekingen", action: "Get relation sales entries", description: "Retrieve sales entries (Verkoopboekingen) associated with a relation (Relatie) from SnelStart" },
+      { name: "Post Many Relations", value: "postManyRelaties", action: "Post many relations", description: "Post multiple relations (Relaties) to SnelStart" },
+      { name: "Put Relation", value: "putRelaties", action: "Put relation", description: "Put a relation (Relatie) in SnelStart" },
+      { name: "Put Relation Custom Fields", value: "putRelatiesCustomFields", action: "Put relation custom fields", description: "Put custom fields (Extra velden) of a relation (Relatie) in SnelStart" },
     ],
     displayOptions: {
       show: { resource: ['relaties'] },
     },
   },
 	{
-		displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+		displayName: 'Heads-up: Not all POST and PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
 		name: 'postNotice',
 		type: 'notice',
 		default: '',
@@ -36,12 +36,12 @@ export const relatiesDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Relatie ID',
+		displayName: 'Relation ID',
 		name: 'relatie_id',
 		type: 'string',
 		default: '',
 		required: true,
-		description: 'The ID (GUID) of the relatie',
+		description: 'The unique identifier of the relation (Relatie) as System.Guid',
 		displayOptions: {
 			show: {
 				resource: ['relaties'],
@@ -75,7 +75,7 @@ export const relatiesDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
@@ -94,17 +94,17 @@ export const relatiesDescription: INodeProperties[] = [
     },
     options: [
       {
-        displayName: 'Aanmaning Email Settings',
+        displayName: 'Payment Reminder Email Settings',
         name: 'aanmaningEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Aanmaning Email Settings',
-        description: 'Email settings for sending reminders (relatiesoort Klant)',
+        placeholder: 'Add Payment Reminder Email Settings',
+        description: 'Email settings for sending payment reminders (Aanmaningen) to customer relations (Relatiesoort Klant)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Aanmaning Email Settings',
+            displayName: 'Payment Reminder Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -113,20 +113,20 @@ export const relatiesDescription: INodeProperties[] = [
           },
         ],
       },
-      { displayName: 'Attach UBL as Attachment', name: 'ublBestandAlsBijlage', type: 'boolean', default: false, description: 'Whether to attach the UBL file as an attachment to the email' },
-      { displayName: 'Banking Enabled', name: 'bankieren', type: 'boolean', default: false, description: 'Whether direct debit type is Core or B2B' },
+      { displayName: 'Attach UBL File', name: 'ublBestandAlsBijlage', type: 'boolean', default: false, description: 'Whether to attach the UBL file (UBL-bestand) to the email' },
+      { displayName: 'Banking Enabled', name: 'bankieren', type: 'boolean', default: false, description: 'Whether banking (Bankieren) is enabled for the relation (Relatie)' },
       {
-        displayName: 'Bestelling Email Settings',
+        displayName: 'Purchase Order Email Settings',
         name: 'bestellingEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Bestelling Email Settings',
-        description: 'Email settings for sending purchase orders',
+        placeholder: 'Add Purchase Order Email Settings',
+        description: 'Email settings for sending purchase orders (Bestellingen)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Bestelling Email Settings',
+            displayName: 'Purchase Order Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -136,17 +136,17 @@ export const relatiesDescription: INodeProperties[] = [
         ],
       },
       {
-        displayName: 'Bevestiging Email Settings',
+        displayName: 'Confirmation Email Settings',
         name: 'bevestigingsEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Bevestiging Email Settings',
-        description: 'Email settings for sending confirmations (relatiesoort Klant)',
+        placeholder: 'Add Confirmation Email Settings',
+        description: 'Email settings for sending confirmations (Bevestigingen) to customer relations (Relatiesoort Klant)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Bevestiging Email Settings',
+            displayName: 'Confirmation Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -162,7 +162,7 @@ export const relatiesDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Business Address',
-        description: 'The business address of the relatie',
+        description: 'The business address (Vestigingsadres) of the relation (Relatie)',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -184,8 +184,8 @@ export const relatiesDescription: INodeProperties[] = [
                     name: 'values',
                     displayName: 'Country',
                     values: [
-                      { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Country ID (GUID)' },
-                      { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Country resource URI' },
+                      { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the country (Land) as System.Guid' },
+                      { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the country (Land)' },
                     ],
                   },
                 ],
@@ -200,7 +200,7 @@ export const relatiesDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Correspondence Address',
-        description: 'The correspondence address of the relatie',
+        description: 'The correspondence address (Correspondentieadres) of the relation (Relatie)',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -232,8 +232,8 @@ export const relatiesDescription: INodeProperties[] = [
           },
         ],
       },
-      { displayName: 'Credit Limit', name: 'kredietLimiet', type: 'number', default: undefined, description: 'Default credit limit (EUR) for this relatie' },
-      { displayName: 'Credit Term', name: 'krediettermijn', type: 'number', default: undefined, description: 'Default number of days credit term for this relatie' },
+      { displayName: 'Credit Limit', name: 'kredietLimiet', type: 'number', default: undefined, description: 'The default credit limit (Kredietlimiet) in EUR for the relation (Relatie)' },
+      { displayName: 'Credit Term', name: 'krediettermijn', type: 'number', default: undefined, description: 'The default credit term (Krediettermijn) in days for the relation (Relatie)' },
       {
         displayName: 'Documents',
         name: 'documents',
@@ -241,7 +241,7 @@ export const relatiesDescription: INodeProperties[] = [
         typeOptions: { multipleValues: true },
         default: {},
         placeholder: 'Add Document',
-        description: 'Documents linked to the relatie',
+        description: 'The documents linked to the relation (Relatie)',
         options: [
           {
             displayName: 'Document',
@@ -250,7 +250,7 @@ export const relatiesDescription: INodeProperties[] = [
             values: [
               { displayName: 'File Name', name: 'fileName', type: 'string', default: undefined },
               { displayName: 'ID', name: 'id', type: 'string', default: undefined },
-              { displayName: 'Parent Identifier', name: 'parentIdentifier', type: 'string', default: undefined, description: 'GUID' },
+              { displayName: 'Parent Identifier', name: 'parentIdentifier', type: 'string', default: undefined, description: 'The unique identifier of the parent resource as System.Guid' },
               { displayName: 'Read Only', name: 'readOnly', type: 'boolean', default: false },
               { displayName: 'URI', name: 'uri', type: 'string', default: undefined },
             ],
@@ -258,16 +258,16 @@ export const relatiesDescription: INodeProperties[] = [
         ],
       },
       {
-        displayName: 'Dunning Type',
+        displayName: 'Payment Reminder Type',
         name: 'aanmaningsoort',
         type: 'options',
         default: 'Nee',
         options: [
-          { name: 'Nee', value: 'Nee' },
-          { name: 'Onderneming', value: 'Onderneming' },
-          { name: 'Consument', value: 'Consument' },
+          { name: 'None', value: 'Nee' },
+          { name: 'Business', value: 'Onderneming' },
+          { name: 'Consumer', value: 'Consument' },
         ],
-        description: 'The reminder/dunning type that applies to the relatie',
+        description: 'The payment reminder type (Aanmaningsoort) applicable to the relation (Relatie)',
       },
       { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
       {
@@ -277,7 +277,7 @@ export const relatiesDescription: INodeProperties[] = [
         typeOptions: { multipleValues: true },
         default: {},
         placeholder: 'Add Extra Field',
-        description: 'Custom fields on a klant type relatie',
+        description: 'Additional custom fields (Extra velden) for a customer (Klant) relation (Relatie)',
         options: [
           {
             displayName: 'Field',
@@ -291,17 +291,17 @@ export const relatiesDescription: INodeProperties[] = [
         ],
       },
       {
-        displayName: 'Factuur Email Settings',
+        displayName: 'Invoice Email Settings',
         name: 'factuurEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Factuur Email Settings',
-        description: 'Email settings for sending invoices (relatiesoort Klant)',
+        placeholder: 'Add Invoice Email Settings',
+        description: 'Email settings for sending invoices (Facturen) to customer relations (Relatiesoort Klant)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Factuur Email Settings',
+            displayName: 'Invoice Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -311,33 +311,33 @@ export const relatiesDescription: INodeProperties[] = [
         ],
       },
       { displayName: 'IBAN', name: 'iban', type: 'string', default: undefined },
-      { displayName: 'Inactive (Nonactief)', name: 'nonactief', type: 'boolean', default: false, description: 'Whether the relatie is inactive' },
+      { displayName: 'Inactive', name: 'nonactief', type: 'boolean', default: false, description: 'Whether the relation (Relatie) is inactive (Non-actief)' },
       {
-        displayName: 'Incasso Type (IncassoSoort)',
+        displayName: 'Direct Debit Type',
         name: 'incassoSoort',
         type: 'options',
         default: 'Geen',
         options: [
-          { name: 'Geen', value: 'Geen' },
+          { name: 'None', value: 'Geen' },
           { name: 'Core', value: 'Core' },
           { name: 'B2B', value: 'B2B' },
         ],
-        description: 'The direct debit type that applies to the relatie',
+        description: 'The direct debit type (Incassosoort) applicable to the relation (Relatie)',
       },
-      { displayName: 'Inkoopboekingen URI', name: 'inkoopBoekingenUri', type: 'string', default: undefined, description: 'Reference to purchase entries for the relatie' },
-      { displayName: 'Invoice Discount (Factuurkorting)', name: 'factuurkorting', type: 'number', default: undefined, description: 'Default invoice discount for this relatie' },
+      { displayName: 'Purchase Entries URI', name: 'inkoopBoekingenUri', type: 'string', default: undefined, description: 'The URI referencing purchase entries (Inkoopboekingen) associated with the relation (Relatie)' },
+      { displayName: 'Invoice Discount', name: 'factuurkorting', type: 'number', default: undefined, description: 'The default invoice discount (Factuurkorting) for the relation (Relatie)' },
       {
-        displayName: 'Invoice To (factuurRelatie)',
+        displayName: 'Invoice To',
         name: 'factuurRelatie',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add factuurRelatie',
-        description: 'If invoices to this relatie must be forwarded to another relatie',
+        placeholder: 'Add Invoice Relation',
+        description: 'The invoice relation (Factuurrelatie) to which invoices for this relation (Relatie) should be addressed',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'factuurRelatie',
+            displayName: 'Invoice Relation',
             values: [
               { displayName: 'ID', name: 'id', type: 'string', default: undefined },
               { displayName: 'URI', name: 'uri', type: 'string', default: undefined },
@@ -348,20 +348,20 @@ export const relatiesDescription: INodeProperties[] = [
       { displayName: 'KvK Number', name: 'kvkNummer', type: 'string', default: undefined },
       { displayName: 'Memo', name: 'memo', type: 'string', default: undefined },
       { displayName: 'Mobile Phone', name: 'mobieleTelefoon', type: 'string', default: undefined },
-      { displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date when this relatie was last modified' },
-      { displayName: 'Name', name: 'naam', type: 'string', default: undefined, description: 'The full name of the relatie' },
+      { displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the relation (Relatie) was last modified' },
+      { displayName: 'Name', name: 'naam', type: 'string', default: undefined, description: 'The full name (Naam) of the relation (Relatie)' },
       {
-        displayName: 'Offerte Email Settings',
+        displayName: 'Quotation Email Settings',
         name: 'offerteEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Offerte Email Settings',
-        description: 'Email settings for sending offertes (relatiesoort Klant)',
+        placeholder: 'Add Quotation Email Settings',
+        description: 'Email settings for sending quotations (Offertes) to customer relations (Relatiesoort Klant)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Offerte Email Settings',
+            displayName: 'Quotation Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -371,17 +371,17 @@ export const relatiesDescription: INodeProperties[] = [
         ],
       },
       {
-        displayName: 'Offerte-Aanvraag Email Settings',
+        displayName: 'Quotation Request Email Settings',
         name: 'offerteAanvraagEmailVersturen',
         type: 'fixedCollection',
         default: {},
-        placeholder: 'Add Offerte-aanvraag Email Settings',
-        description: 'Email settings for sending quotation requests (relatiesoort Leverancier)',
+        placeholder: 'Add Quotation Request Email Settings',
+        description: 'Email settings for sending quotation requests (Offerteaanvragen) to supplier relations (Relatiesoort Leverancier)',
         typeOptions: { multipleValues: false },
         options: [
           {
             name: 'values',
-            displayName: 'Offerte-Aanvraag Email Settings',
+            displayName: 'Quotation Request Email Settings',
             values: [
               { displayName: 'Should Send', name: 'shouldSend', type: 'boolean', default: false },
               { displayName: 'Email', name: 'email', type: 'string', default: undefined, placeholder: 'name@email.com' },
@@ -392,22 +392,22 @@ export const relatiesDescription: INodeProperties[] = [
       },
       { displayName: 'OIN', name: 'oin', type: 'string', default: undefined },
       { displayName: 'Phone', name: 'telefoon', type: 'string', default: undefined },
-      { displayName: 'Public ID', name: 'id', type: 'string', default: undefined, description: 'Relatie ID (GUID)' },
-      { displayName: 'Relatie Code (Relatiecode)', name: 'relatiecode', type: 'number', default: undefined, description: 'The relatie number' },
+      { displayName: 'Public ID', name: 'id', type: 'string', default: undefined, description: 'The public identifier of the relation (Relatie) as System.Guid' },
+      { displayName: 'Relation Code', name: 'relatiecode', type: 'number', default: undefined, description: 'The relation code (Relatiecode) identifying the relation (Relatie)' },
       {
-        displayName: 'Relatiesoort',
+        displayName: 'Relation Type',
         name: 'relatiesoort',
         type: 'multiOptions',
         default: [],
-        description: 'Allowed values: Klant, Leverancier',
+        description: 'The relation type (Relatiesoort), either Customer (Klant) or Supplier (Leverancier)',
         options: [
-          { name: 'Klant', value: 'Klant' },
-          { name: 'Leverancier', value: 'Leverancier' },
+          { name: 'Customer', value: 'Klant' },
+          { name: 'Supplier', value: 'Leverancier' },
         ],
       },
-      { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Relatie resource URI' },
+      { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the relation (Relatie)' },
       { displayName: 'VAT Number', name: 'btwNummer', type: 'string', default: undefined },
-      { displayName: 'Verkoopboekingen URI', name: 'verkoopBoekingenUri', type: 'string', default: undefined, description: 'Reference to sales entries for the relatie' },
+      { displayName: 'Sales Entries URI', name: 'verkoopBoekingenUri', type: 'string', default: undefined, description: 'The URI referencing sales entries (Verkoopboekingen) associated with the relation (Relatie)' },
       { displayName: 'Website URL', name: 'websiteUrl', type: 'string', default: undefined },
     ],
   },
@@ -425,41 +425,41 @@ export const relatiesDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Klant Custom Fields',
+				displayName: 'Customer Custom Fields',
 				name: 'klantCustomFields',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
 				placeholder: 'Add Custom Field',
-				description: 'Custom fields for a klant type relatie',
+				description: 'Custom fields (Extra velden) for a customer (Klant) relation (Relatie)',
 				options: [
 					{
 						displayName: 'Field',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
-							{ displayName: 'Name', name: 'name', type: 'string', default: undefined, description: 'Custom field name' },
-              { displayName: 'Value', name: 'value', type: 'json', default: '=', description: 'Custom field value (any JSON)' },
+							{ displayName: 'Name', name: 'name', type: 'string', default: undefined, description: 'The name of the custom field' },
+              { displayName: 'Value', name: 'value', type: 'json', default: '=', description: 'The value of the custom field as JSON' },
 						],
 					},
 				],
 			},
 			{
-				displayName: 'Leverancier Custom Fields',
+				displayName: 'Supplier Custom Fields',
 				name: 'leverancierCustomFields',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
 				placeholder: 'Add Custom Field',
-				description: 'Custom fields for a leverancier type relatie',
+				description: 'Custom fields (Extra velden) for a supplier (Leverancier) relation (Relatie)',
 				options: [
 					{
 						displayName: 'Field',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
-							{ displayName: 'Name', name: 'name', type: 'string', default: undefined, description: 'Custom field name' },
-							{ displayName: 'Value', name: 'value', type: 'json', default: '=', description: 'Custom field value (any JSON)' },
+							{ displayName: 'Name', name: 'name', type: 'string', default: undefined, description: 'The name of the custom field' },
+							{ displayName: 'Value', name: 'value', type: 'json', default: '=', description: 'The value of the custom field as JSON' },
 						],
 					},
 				],

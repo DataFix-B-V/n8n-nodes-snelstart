@@ -8,11 +8,11 @@ export const kasboekingenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyKasboekingen',
     options: [
-      { name: 'Delete Kasboekingen', value: 'deleteKasboekingen', action: 'Delete kasboekingen' },
-			{ name: 'Get Kasboekingen', value: 'getKasboekingen', action: 'Get kasboekingen' },
-			{ name: 'Get Many Kasboekingen', value: 'getManyKasboekingen', action: 'Get many kasboekingen' },
-			{ name: 'Post Many Kasboekingen', value: 'postManyKasboekingen', action: 'Post many kasboekingen' },
-			{ name: 'Put Kasboekingen', value: 'putKasboekingen', action: 'Put kasboekingen' },
+      { name: 'Delete Cash Entry', value: 'deleteKasboekingen', action: 'Delete cash entry', description: 'Delete a cash entry (Kasboeking) from SnelStart' },
+			{ name: 'Get Cash Entry', value: 'getKasboekingen', action: 'Get cash entry', description: 'Retrieve a cash entry (Kasboeking) from SnelStart' },
+			{ name: 'Get Many Cash Entries', value: 'getManyKasboekingen', action: 'Get many cash entries', description: 'Retrieve multiple cash entries (Kasboekingen) from SnelStart' },
+			{ name: 'Post Many Cash Entries', value: 'postManyKasboekingen', action: 'Post many cash entries', description: 'Post multiple cash entries (Kasboekingen) to SnelStart' },
+			{ name: 'Put Cash Entry', value: 'putKasboekingen', action: 'Put cash entry', description: 'Put a cash entry (Kasboeking) in SnelStart' },
     ],
     displayOptions: {
       show: { resource: ['kasboekingen'] },
@@ -20,7 +20,7 @@ export const kasboekingenDescription: INodeProperties[] = [
   },
 	{
 		displayName:
-			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+			'Heads-up: Not all POST and PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
 		name: 'postNotice',
 		type: 'notice',
 		default: '',
@@ -32,12 +32,12 @@ export const kasboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Kasboeking ID',
+		displayName: 'Cash Entry ID',
 		name: 'kasboeking_id',
 		type: 'string',
 		default: undefined,
 		required: true,
-		description: 'The ID of the kasboeking (GUID)',
+		description: 'The unique identifier of the cash entry (Kasboeking) as System.Guid',
 		displayOptions: {
 			show: {
 				resource: ['kasboekingen'],
@@ -51,7 +51,7 @@ export const kasboekingenDescription: INodeProperties[] = [
 		type: 'dateTime',
 		default: undefined,
 		required: true,
-		description: 'The date of the kasboeking',
+		description: 'The date (Datum) of the cash entry (Kasboeking)',
 		displayOptions: {
 			show: {
 				resource: ['kasboekingen'],
@@ -65,7 +65,7 @@ export const kasboekingenDescription: INodeProperties[] = [
 		type: 'number',
 		default: undefined,
 		required: true,
-		description: 'The amount spent in the kasboeking',
+		description: 'The amount spent (Bedrag uitgegeven) in the cash entry (Kasboeking)',
 		displayOptions: {
 			show: {
 				resource: ['kasboekingen'],
@@ -79,7 +79,7 @@ export const kasboekingenDescription: INodeProperties[] = [
 		type: 'number',
 		default: undefined,
 		required: true,
-		description: 'The amount received in the kasboeking',
+		description: 'The amount received (Bedrag ontvangen) in the cash entry (Kasboeking)',
 		displayOptions: {
 			show: {
 				resource: ['kasboekingen'],
@@ -88,12 +88,12 @@ export const kasboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Diary',
+		displayName: 'Journal',
 		name: 'dagboek',
 		type: 'fixedCollection',
 		default: {},
-		placeholder: 'Add Diary',
-		description: 'The diary of the kasboekingen reference',
+		placeholder: 'Add Journal',
+		description: 'The journal (Dagboek) associated with the cash entry (Kasboeking)',
 		required: true,
 		typeOptions: { multipleValues: false },
 		displayOptions: {
@@ -104,11 +104,11 @@ export const kasboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Diary',
+				displayName: 'Journal',
 				name: 'values',
 				values: [
-					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the diary the bankboekingen belongs to' },
-					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the diary the bankboekingen belongs to' },
+					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the journal (Dagboek) the cash entry belongs to' },
+					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the journal (Dagboek) the cash entry belongs to' },
 				],
 			},
 		],
@@ -139,161 +139,161 @@ export const kasboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Changed By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether this kasboeking has been modified by the accountant' },
-			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the kasboeking' },
-			{ displayName: 'Document Number', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number of the kasboeking' },
+			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the cash entry (Kasboeking) was modified by an accountant (Gewijzigd door accountant)' },
+			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the cash entry (Kasboeking)' },
+			{ displayName: 'Document Number', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number (Boekstuk) of the cash entry (Kasboeking)' },
 			{
-				displayName: 'General Ledger Booking Lines',
+				displayName: 'General Ledger Posting Lines',
 				name: 'grootboekBoekingsRegels',
 				type: 'fixedCollection',
 				default: {},
-				placeholder: 'Add General Ledger Booking Line',
-				description: 'General ledger booking lines of the kasboeking',
+				placeholder: 'Add General Ledger Posting Line',
+				description: 'The general ledger posting lines (Grootboekboekingsregels) associated with the cash entry (Kasboeking)',
 				typeOptions: { multipleValues: true },
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Cost Center (Kostenplaats)',
+								displayName: 'Cost Center',
 								name: 'kostenplaats',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Cost Center (Kostenplaats)',
+										displayName: 'Cost Center',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Kostenplaats-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Kostenplaats-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the cost center (Kostenplaats) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the cost center (Kostenplaats)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount of the general ledger booking line' },
-							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount of the general ledger booking line' },
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the general ledger booking line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the general ledger posting line' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the general ledger posting line' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the general ledger posting line' },
 							{
-								displayName: 'Ledger (Grootboek)',
+								displayName: 'General Ledger Account',
 								name: 'grootboek',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Ledger (Grootboek)',
+										displayName: 'General Ledger Account',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Grootboek-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Grootboek-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the general ledger account (Grootboek) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the general ledger account (Grootboek)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'VAT Type', name: 'btwSoort', type: 'string', default: undefined, description: 'The VAT type of the general ledger booking line' },
+							{ displayName: 'VAT Type', name: 'btwSoort', type: 'string', default: undefined, description: 'The VAT type (Btw-soort) of the general ledger posting line' },
 						]
 					},
 				],
 			},
-			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the kasboeking (GUID)' },
-			{ displayName: 'Marking', name: 'markering', type: 'boolean', default: false, description: 'Whether this kasboeking deserves special attention, in SnelStart this is visually emphasized' },
-			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time when the kasboeking was last modified or created' },
+			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the cash entry (Kasboeking) as System.Guid' },
+			{ displayName: 'Mark for Attention', name: 'markering', type: 'boolean', default: false, description: 'Whether the cash entry (Kasboeking) is marked (Markering) as requiring extra attention in SnelStart' },
+			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the cash entry (Kasboeking) was last modified or created' },
 			{
-				displayName: 'Purchase Booking Lines',
+				displayName: 'Purchase Entry Posting Lines',
 				name: 'inkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
 				default: {},
-				placeholder: 'Add Purchase Booking Line',
-				description: 'Purchase booking lines of the kasboeking',
+				placeholder: 'Add Purchase Entry Posting Line',
+				description: 'The purchase entry posting lines (Inkoopboekingboekingsregels) associated with the cash entry (Kasboeking)',
 				typeOptions: { multipleValues: true },
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Booking ID',
+								displayName: 'Entry ID',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
-										displayName: 'Booking ID',
+										displayName: 'Entry ID',
 										name: 'values',
-										placeholder: 'Add Booking ID',
+										placeholder: 'Add Entry ID',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the purchase booking (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the purchase booking' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the purchase entry (Inkoopboeking) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the purchase entry (Inkoopboeking)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the purchase booking line' },
-							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount of the purchase booking line' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount of the purchase booking line' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the purchase entry posting line' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the purchase entry posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the purchase entry posting line' },
 						]
 					},
 				],
 			},
 			{
-				displayName: 'Sales Entry Booking Rules',
+				displayName: 'Sales Entry Posting Lines',
 				name: 'verkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add Sales Entry Booking Rule',
-				description: 'The sales entry booking rules of the bankboekingen',
+				placeholder: 'Add Sales Entry Posting Line',
+				description: 'The sales entry posting lines (Verkoopboekingboekingsregels) associated with the cash entry (Kasboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Boeking ID',
+								displayName: 'Entry ID',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Boeking ID',
-										placeholder: 'Add Boeking ID',
+										displayName: 'Entry ID',
+										placeholder: 'Add Entry ID',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Boeking-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Boeking-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The unique identifier of the sales entry (Verkoopboeking) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the sales entry (Verkoopboeking)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the Sales Entry Boeking Rule' },
-							{ displayName: 'Debet', name: 'debet', type: 'number', default: undefined, description: 'Debet amount' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit amount' }
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the sales entry posting line' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the sales entry posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the sales entry posting line' }
 						],
 					},
 				],
 			},
-			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the kasboeking' },
+			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the cash entry (Kasboeking)' },
 			{
-				displayName: 'VAT Booking Rules',
+				displayName: 'VAT Posting Lines',
 				name: 'btwBoekingsregels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add VAT Booking Rule',
-				description: 'The VAT booking rules of the bankboekingen',
+				placeholder: 'Add VAT Posting Line',
+				description: 'The VAT posting lines (Btw-boekingsregels) associated with the cash entry (Kasboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
-							{ displayName: 'Debet', name: 'debet', type: 'number', default: undefined, description: 'Debet amount' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit amount' },
-							{ displayName: 'Type', name: 'type', type: 'string', default: undefined, description: 'VAT Type to be Claimed' },
-							{ displayName: 'Rate', name: 'tarief', type: 'string', default: undefined, description: 'VAT Rate' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the VAT posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the VAT posting line' },
+							{ displayName: 'Type', name: 'type', type: 'string', default: undefined, description: 'The VAT type (Btw-soort) of the posting line' },
+							{ displayName: 'Rate', name: 'tarief', type: 'string', default: undefined, description: 'The VAT rate (Btw-tarief) of the posting line' },
 						],
 					},
 				],
@@ -313,7 +313,7 @@ export const kasboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]

@@ -8,20 +8,20 @@ export const landenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getLanden',
     options: [
-      { name: 'Get Landen', value: 'getLanden', action: 'Get landen' },
-			{ name: 'Get Many Landen', value: 'getManyLanden', action: 'Get many landen' },
+      { name: 'Get Country', value: 'getLanden', action: 'Get country', description: 'Retrieve a country (Land) from SnelStart' },
+			{ name: 'Get Many Countries', value: 'getManyLanden', action: 'Get many countries', description: 'Retrieve multiple countries (Landen) from SnelStart' },
     ],
     displayOptions: {
       show: { resource: ['landen'] },
     },
   },
 	{
-		displayName: 'Land ID',
+		displayName: 'Country ID',
 		name: 'land_id',
 		type: 'string',
 		default: '',
 		required: true,
-		description: 'The ID of the land to retrieve',
+		description: 'The ID of the country (Land) to retrieve',
 		displayOptions: {
 			show: {
 				resource: ['landen'],

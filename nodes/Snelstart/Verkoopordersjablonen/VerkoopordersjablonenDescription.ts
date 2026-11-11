@@ -1,3 +1,4 @@
+
 import { INodeProperties } from 'n8n-workflow';
 
 export const verkoopordersjablonenDescription: INodeProperties[] = [
@@ -8,26 +9,25 @@ export const verkoopordersjablonenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyVerkoopordersjablonen',
     options: [
-      { name: "Get Many Verkoopordersjablonen", value: "getManyVerkoopordersjablonen", action: "Get many verkoopordersjablonen" },
-			{ name: "Get Verkoopordersjablonen", value: "getVerkoopordersjablonen", action: "Get verkoopordersjablonen" }
+      { name: "Get Many Sales Order Templates", value: "getManyVerkoopordersjablonen", action: "Get many sales order templates", description: "Retrieve multiple sales order templates (Verkoopordersjablonen) from SnelStart" },
+      { name: "Get Sales Order Template", value: "getVerkoopordersjablonen", action: "Get a sales order template", description: "Retrieve a specific sales order template (Verkoopordersjabloon) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['verkoopordersjablonen'] },
     },
   },
-	{
-		displayName: 'Verkooporder Sjabloon ID',
-		name: 'verkooporder_sjabloon_id',
-		type: 'string',
-		default: '',
-		required: true,
-		description: 'The ID of the Verkoopordersjablonen to retrieve',
-		displayOptions: {
-			show: {
-				resource: ['verkoopordersjablonen'],
-				operation: ['getVerkoopordersjablonen'],
-			},
-		},
-	}
+  {
+    displayName: 'Sales Order Template ID',
+    name: 'verkooporder_sjabloon_id',
+    type: 'string',
+    default: '',
+    required: true,
+    description: 'The ID of the sales order template to retrieve',
+    displayOptions: {
+      show: {
+        resource: ['verkoopordersjablonen'],
+        operation: ['getVerkoopordersjablonen'],
+      },
+    },
+  }
 ]
-

@@ -8,8 +8,8 @@ export const rapportagesDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyRapportagesKolommenbalans',
     options: [
-      { name: "Get Many Rapportages Kolommenbalans", value: "getManyRapportagesKolommenbalans", action: "Get many rapportages kolommenbalans" },
-      { name: "Get Many Rapportages Periodebalans", value: "getManyRapportagesPeriodebalans", action: "Get many rapportages periodebalans" }
+      { name: "Get Many Trial Balance Reports", value: "getManyRapportagesKolommenbalans", action: "Get many trial balance reports", description: "Retrieve multiple trial balance reports (Kolommenbalans) from SnelStart" },
+      { name: "Get Many Period Balance Reports", value: "getManyRapportagesPeriodebalans", action: "Get many period balance reports", description: "Retrieve multiple period balance reports (Periodebalans) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['rapportages'] },
@@ -28,8 +28,8 @@ export const rapportagesDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Start Date', name: 'start', type: 'dateTime', default: '', description: 'The start date from which to retrieve rapportages' },
-			{ displayName: 'End Date', name: 'end', type: 'dateTime', default: '', description: 'The end date until which to retrieve rapportages' },
+			{ displayName: 'Start Date', name: 'start', type: 'dateTime', default: '', description: 'The start date from which to retrieve reports (Rapportages)' },
+			{ displayName: 'End Date', name: 'end', type: 'dateTime', default: '', description: 'The end date until which to retrieve reports (Rapportages)' },
 		]
 	},
 ]

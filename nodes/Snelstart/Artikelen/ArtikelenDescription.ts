@@ -1,3 +1,4 @@
+
 import { INodeProperties } from 'n8n-workflow';
 
 export const artikelenDescription: INodeProperties[] = [
@@ -8,14 +9,14 @@ export const artikelenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getArtikelen',
     options: [
-      { name: 'Delete Artikelen', value: 'deleteArtikelen', action: 'Delete artikelen' },
-      { name: 'Get Artikelen', value: 'getArtikelen', action: 'Get artikelen' },
-      { name: 'Get Artikelen Custom Fields', value: 'getArtikelenCustomFields', action: 'Get artikelen custom fields' },
-      { name: 'Get Many Artikelen', value: 'getManyArtikelen', action: 'Get many artikelen' },
-      { name: 'Get Many Artikelen Prijsafspraken', value: 'getManyArtikelenPrijsafspraken', action: 'Get many artikelen prijsafspraken' },
-      { name: 'Post Artikelen', value: 'postManyArtikelen', action: 'Post artikelen' },
-      { name: 'Put Artikelen', value: 'putArtikelen', action: 'Put artikelen' },
-      { name: 'Put Artikelen Custom Fields', value: 'putArtikelenCustomFields', action: 'Put artikelen custom fields' },
+      { name: 'Delete Article', value: 'deleteArtikelen', action: 'Delete article', description: 'Delete an article (Artikel) from SnelStart' },
+      { name: 'Get Article', value: 'getArtikelen', action: 'Get article', description: 'Retrieve an article (Artikel) from SnelStart' },
+      { name: 'Get Article Custom Fields', value: 'getArtikelenCustomFields', action: 'Get article custom fields', description: 'Retrieve custom fields (Extra velden) of an article (Artikel) from SnelStart' },
+      { name: 'Get Many Articles', value: 'getManyArtikelen', action: 'Get many articles', description: 'Retrieve multiple articles (Artikelen) from SnelStart' },
+      { name: 'Get Many Article Pricing Agreements', value: 'getManyArtikelenPrijsafspraken', action: 'Get many article pricing agreements', description: 'Retrieve article pricing agreements (Prijsafspraken) from SnelStart' },
+      { name: 'Post Articles', value: 'postManyArtikelen', action: 'Post articles', description: 'Post articles (Artikelen) to SnelStart' },
+      { name: 'Put Article', value: 'putArtikelen', action: 'Put article', description: 'Put an article (Artikel) in SnelStart' },
+      { name: 'Put Article Custom Fields', value: 'putArtikelenCustomFields', action: 'Put article custom fields', description: 'Put custom fields (Extra velden) of an article (Artikel) in SnelStart' },
     ],
     displayOptions: {
       show: { resource: ['artikelen'] },
@@ -35,11 +36,11 @@ export const artikelenDescription: INodeProperties[] = [
 		},
 	},
   {
-    displayName: 'Artikelen ID',
+    displayName: 'Article ID',
     name: 'artikel_id',
     type: 'string',
     default: undefined,
-    description: 'The public identifier of the resource as System.Guid',
+    description: 'The public identifier of the article (Artikel) as System.Guid',
     required: true,
     displayOptions: {
       show: {
@@ -90,9 +91,9 @@ export const artikelenDescription: INodeProperties[] = [
 		default: {},
 		displayOptions: { show: { resource: ['artikelen'], operation: ['getManyArtikelen'] } },
 		options: [
-			{ displayName: 'Amount', name: 'totaal', type: 'number', default: 0, description: 'The (optionally provided) quantity of the item for which the price agreement for the item to be collected must be determined' },
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: '', description: 'OData $filter' },
-			{ displayName: 'Relation ID', name: 'relatieId', type: 'string', default: '', description: 'The relation ID of the price agreements to fetch' },
+			{ displayName: 'Amount', name: 'totaal', type: 'number', default: 0, description: 'The quantity of articles used to determine the applicable pricing agreement (Prijsafspraak)' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: '', description: 'OData filter string to filter the results' },
+			{ displayName: 'Relation ID', name: 'relatieId', type: 'string', default: '', description: 'The relation (Relatie) ID used to retrieve pricing agreements' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] } } },
 			{ displayName: 'Top', name: '$top', type: 'number', default: 0, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] } } },
 		],
@@ -110,9 +111,9 @@ export const artikelenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Relation ID', name: 'relatieId', type: 'string', default: undefined, description: 'The relation ID of the price agreements to fetch',
+			{ displayName: 'Relation ID', name: 'relatieId', type: 'string', default: undefined, description: 'The relation (Relatie) ID used to retrieve pricing agreements',
 			},
-			{ displayName: 'Amount', name: 'totaal', type: 'number', default: undefined, description: 'The total number of items to return' },
+			{ displayName: 'Amount', name: 'totaal', type: 'number', default: undefined, description: 'The quantity of articles used to determine the applicable pricing agreement (Prijsafspraak)' },
 		],
 	},
 	{
@@ -128,15 +129,15 @@ export const artikelenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter', displayOptions: { show: { '/returnAll': [false] }, }, },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
 		],
 	},
 
-	// Adding a note to the UI for posting and putting artikelen
+	// Adding a note to the UI for posting and putting articles
 	{
-		displayName: 'Heads-up: Fields marked (\*) are required (verified via testing), despite the official docs stating they’re optional. It is possible that more fields are required but not yet identified.',
+		displayName: 'Heads-up: Fields marked (*) are required (verified via testing), despite the official documentation stating they are optional. Additional required fields may exist but have not yet been identified.',
 		name: 'note',
 		type: 'notice',
 		default: '',
@@ -160,24 +161,24 @@ export const artikelenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Artikel Group*',
+				displayName: 'Article Revenue Group*',
 				name: 'artikelOmzetgroep',
 				type: 'fixedCollection',
 				default: {},
 				options: [
 					{
 						name: 'values',
-						displayName: 'Artikel Omzetgroep',
+						displayName: 'Article Revenue Group',
 						values: [
 							{ displayName: 'ID', name: 'id', type: 'string', default: '' },
 							{ displayName: 'URI', name: 'uri', type: 'string', default: '' },
 						],
 					},
 				],
-				description: 'The artikel omzetgroep of the artikel',
+				description: 'The revenue group (Artikelomzetgroep) associated with the article',
 			},
-			{ displayName: 'Artikelcode*', name: 'artikelcode', type: 'string', default: undefined, description: 'The code of the artikel' },
-			{ displayName: 'Description*', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the artikel' },
+			{ displayName: 'Article Code*', name: 'artikelcode', type: 'string', default: undefined, description: 'The code (Artikelcode) of the article' },
+			{ displayName: 'Description*', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the article' },
 			{
 				displayName: 'Extra Fields',
 				name: 'extraVelden',
@@ -189,19 +190,19 @@ export const artikelenDescription: INodeProperties[] = [
 						name: 'values',
 						displayName: 'Field',
 						values: [
-							{ displayName: 'Name', name: 'naam', type: 'string', default: undefined, description: 'The name of the extra field' },
-							{ displayName: 'Value', name: 'waarde', type: 'string', default: undefined, description: 'The value of the extra field' },
+							{ displayName: 'Name', name: 'naam', type: 'string', default: undefined, description: 'The name (Naam) of the extra field' },
+							{ displayName: 'Value', name: 'waarde', type: 'string', default: undefined, description: 'The value (Waarde) of the extra field' },
 						],
 					},
 				],
-				description: 'Additional name/value fields for the artikel',
+				description: 'Additional custom fields (Extra velden) for the article',
 			},
-			{ displayName: 'Free Stock', name: 'vrijeVoorraad', type: 'number', default: undefined, description: 'The free stock of the artikel' },
+			{ displayName: 'Free Stock', name: 'vrijeVoorraad', type: 'number', default: undefined, description: 'The available stock (Vrije voorraad) of the article' },
 			{ displayName: 'ID', name: 'id', type: 'string', default: '', description: 'The public identifier of the resource as System.Guid' },
-			{ displayName: 'Inventory Control', name: 'voorraadControle', type: 'boolean', default: false, description: 'Whether to keep inventory for the artikel' },
-			{ displayName: 'Is Inactive', name: 'isNonActief', type: 'boolean', default: false, description: 'Whether the artikel is inactive' },
+			{ displayName: 'Inventory Control', name: 'voorraadControle', type: 'boolean', default: false, description: 'Whether inventory tracking (Voorraadcontrole) is enabled for the article' },
+			{ displayName: 'Is Inactive', name: 'isNonActief', type: 'boolean', default: false, description: 'Whether the article is inactive (Non-actief)' },
 			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the record was last modified' },
-			{ displayName: 'Purchase Price', name: 'inkoopprijs', type: 'number', default: undefined, description: 'The purchase price of the artikel' },
+			{ displayName: 'Purchase Price', name: 'inkoopprijs', type: 'number', default: undefined, description: 'The purchase price (Inkoopprijs) of the article' },
 			{
 				displayName: 'Relation',
 				name: 'relatie',
@@ -217,11 +218,11 @@ export const artikelenDescription: INodeProperties[] = [
 						],
 					},
 				],
-				description: 'The relation object of the artikel',
+				description: 'The relation (Relatie) associated with the article',
 			},
-			{ displayName: 'Selling Price', name: 'verkoopprijs', type: 'number', default: undefined, description: 'The selling price of the artikel', required: true },
-			{ displayName: 'Technical Inventory', name: 'technischeVoorraad', type: 'number', default: undefined, description: 'The technical inventory of the artikel' },
-			{ displayName: 'Unit', name: 'eenheid', type: 'string', default: undefined, description: 'The unit of the artikel' },
+			{ displayName: 'Selling Price', name: 'verkoopprijs', type: 'number', default: undefined, description: 'The selling price (Verkoopprijs) of the article', required: true },
+			{ displayName: 'Technical Inventory', name: 'technischeVoorraad', type: 'number', default: undefined, description: 'The technical inventory (Technische voorraad) of the article' },
+			{ displayName: 'Unit', name: 'eenheid', type: 'string', default: undefined, description: 'The unit (Eenheid) of the article' },
 			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the resource' },
 		],
 	}

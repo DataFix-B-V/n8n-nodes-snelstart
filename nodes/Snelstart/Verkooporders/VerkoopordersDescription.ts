@@ -1,3 +1,4 @@
+
 import { INodeProperties } from 'n8n-workflow';
 
 export const verkoopordersDescription: INodeProperties[] = [
@@ -8,42 +9,42 @@ export const verkoopordersDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyVerkooporders',
     options: [
-      { name: "Delete Verkooporders", value: "deleteVerkooporders", action: "Delete verkooporders" },
-      { name: "Get Many Verkooporders", value: "getManyVerkooporders", action: "Get many verkooporders" },
-      { name: "Get Verkooporders", value: "getVerkooporders", action: "Get verkooporders" },
-      { name: "Post Many Verkooporders", value: "postManyVerkooporders", action: "Post many verkooporders" },
-      { name: "Put Verkooporders", value: "putVerkooporders", action: "Put verkooporders" },
-      { name: "Put Verkooporders Proces Status", value: "putVerkoopordersProcesStatus", action: "Put verkooporders proces status" },
+      { name: "Delete Sales Order", value: "deleteVerkooporders", action: "Delete a sales order", description: "Delete a specific sales order (Verkooporder) from SnelStart" },
+      { name: "Get Many Sales Orders", value: "getManyVerkooporders", action: "Get many sales orders", description: "Retrieve multiple sales orders (Verkooporders) from SnelStart" },
+      { name: "Get Sales Order", value: "getVerkooporders", action: "Get a sales order", description: "Retrieve a specific sales order (Verkooporder) from SnelStart" },
+      { name: "Post Many Sales Orders", value: "postManyVerkooporders", action: "Post many sales orders", description: "Create multiple sales orders (Verkooporders) in SnelStart" },
+      { name: "Put Sales Order", value: "putVerkooporders", action: "Update a sales order", description: "Update an existing sales order (Verkooporder) in SnelStart" },
+      { name: "Put Sales Order Process Status", value: "putVerkoopordersProcesStatus", action: "Update a sales order process status", description: "Update the process status (Processtatus) of a sales order (Verkooporder) in SnelStart" },
     ],
     displayOptions: {
       show: { resource: ['verkooporders'] },
     },
   },
-	{
-		displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
-		name: 'postNotice',
-		type: 'notice',
-		default: '',
-		displayOptions: {
-			show: {
-				resource: ['verkooporders'],
-				operation: ['postManyVerkooporders', 'putVerkooporders', 'putVerkoopordersProcesStatus'],
-			},
-		},
-	},
-	{
-		displayName: 'Return All',
-		name: 'returnAll',
-		type: 'boolean',
-		default: true,
-		description: 'Whether to return all results or only up to a given limit',
-		displayOptions: {
-			show: {
-				resource: ['verkooporders'],
-				operation: ['getManyVerkooporders'],
-			},
-		},
-	},
+  {
+    displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+    name: 'postNotice',
+    type: 'notice',
+    default: '',
+    displayOptions: {
+      show: {
+        resource: ['verkooporders'],
+        operation: ['postManyVerkooporders', 'putVerkooporders', 'putVerkoopordersProcesStatus'],
+      },
+    },
+  },
+  {
+    displayName: 'Return All',
+    name: 'returnAll',
+    type: 'boolean',
+    default: true,
+    description: 'Whether to return all results or only up to a given limit',
+    displayOptions: {
+      show: {
+        resource: ['verkooporders'],
+        operation: ['getManyVerkooporders'],
+      },
+    },
+  },
   {
     displayName: 'Options',
     name: 'options',
@@ -62,30 +63,30 @@ export const verkoopordersDescription: INodeProperties[] = [
       { displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
     ],
   },
-	// Dropdown where the user can choose between a body via json or via parameters
-	{
-		displayName: 'Specify Body',
-		name: 'specifyBody',
-		type: 'options',
-		options: [
-			{ name: 'JSON', value: 'json', description: 'Provide the body as raw JSON' },
-			{ name: 'Parameters', value: 'parameters', description: 'Provide the body via parameters' },
-		],
-		default: 'parameters',
-		displayOptions: {
-			show: {
-				resource: ['verkooporders'],
-				operation: ['postManyVerkooporders', 'putVerkooporders'],
-			},
-		},
-	},
+  // Dropdown where the user can choose between a body via json or via parameters
   {
-    displayName: 'Verkooporder ID',
+    displayName: 'Specify Body',
+    name: 'specifyBody',
+    type: 'options',
+    options: [
+      { name: 'JSON', value: 'json', description: 'Provide the body as raw JSON' },
+      { name: 'Parameters', value: 'parameters', description: 'Provide the body via parameters' },
+    ],
+    default: 'parameters',
+    displayOptions: {
+      show: {
+        resource: ['verkooporders'],
+        operation: ['postManyVerkooporders', 'putVerkooporders'],
+      },
+    },
+  },
+  {
+    displayName: 'Sales Order ID',
     name: 'verkooporder_id',
     type: 'string',
     default: '',
     required: true,
-    description: 'The ID of the verkooporder to retrieve',
+    description: 'The ID of the sales order to retrieve',
     displayOptions: {
       show: {
         resource: ['verkooporders'],
@@ -93,32 +94,32 @@ export const verkoopordersDescription: INodeProperties[] = [
       },
     },
   },
-	{
-		displayName: 'JSON Body',
-		name: 'jsonBody',
-		type: 'json',
-		default: '',
-		description: 'Body as JSON object',
-		displayOptions: {
-			show: {
-				resource: ['verkooporders'],
-				operation: ['postManyVerkooporders', 'putVerkooporders'],
-				specifyBody: ['json'],
-			},
-		},
-	},
+  {
+    displayName: 'JSON Body',
+    name: 'jsonBody',
+    type: 'json',
+    default: '',
+    description: 'Body as JSON object',
+    displayOptions: {
+      show: {
+        resource: ['verkooporders'],
+        operation: ['postManyVerkooporders', 'putVerkooporders'],
+        specifyBody: ['json'],
+      },
+    },
+  },
   {
     displayName: 'Date',
     name: 'datum',
     type: 'dateTime',
     default: undefined,
     required: true,
-    description: 'The sales order (verkooporder) date',
+    description: 'The sales order (Verkooporder) date',
     displayOptions: {
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
-				specifyBody: ['parameters'],
+        specifyBody: ['parameters'],
       },
     },
   },
@@ -129,13 +130,13 @@ export const verkoopordersDescription: INodeProperties[] = [
     default: {},
     required: true,
     placeholder: 'Add Relation',
-    description: 'Relatie reference for the verkooporder',
+    description: 'Relation (Relatie) reference for the sales order',
     typeOptions: { multipleValues: false },
     displayOptions: {
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
-				specifyBody: ['parameters'],
+        specifyBody: ['parameters'],
       },
     },
     options: [
@@ -150,23 +151,23 @@ export const verkoopordersDescription: INodeProperties[] = [
       },
     ],
   },
-	{
-		displayName: 'Add Field',
-		name: 'fields',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
-		displayOptions: {
-			show: {
-				resource: ['verkooporders'],
-				operation: ['putVerkoopordersProcesStatus'],
-			},
-		},
-		options: [
-			{ displayName: 'Process Status', name: 'procesStatus', type: 'string', default: 'Order', description: 'Status of the verkooporder',	},
-			{ displayName: 'ID', name: 'id', type: 'string', default: '', description: 'Public identifier (GUID)',	},
-		],
-	},
+  {
+    displayName: 'Add Field',
+    name: 'fields',
+    type: 'collection',
+    placeholder: 'Add Field',
+    default: {},
+    displayOptions: {
+      show: {
+        resource: ['verkooporders'],
+        operation: ['putVerkoopordersProcesStatus'],
+      },
+    },
+    options: [
+      { displayName: 'Process Status', name: 'procesStatus', type: 'string', default: 'Order', description: 'Status of the sales order', },
+      { displayName: 'ID', name: 'id', type: 'string', default: '', description: 'Public identifier (GUID)',  },
+    ],
+  },
   {
     displayName: 'Add Field',
     name: 'fields',
@@ -177,18 +178,18 @@ export const verkoopordersDescription: INodeProperties[] = [
       show: {
         resource: ['verkooporders'],
         operation: ['postManyVerkooporders', 'putVerkooporders'],
-				specifyBody: ['parameters'],
+        specifyBody: ['parameters'],
       },
     },
     options: [
-      { displayName: 'Blocked', name: 'geblokkeerd', type: 'boolean', default: false, description: 'Whether the verkooporder is blocked' },
+      { displayName: 'Blocked', name: 'geblokkeerd', type: 'boolean', default: false, description: 'Whether the sales order is blocked' },
       {
         displayName: 'Cost Center',
         name: 'kostenplaats',
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Cost Center',
-        description: 'Cost center reference',
+        description: 'Cost center (Kostenplaats) reference',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -208,7 +209,7 @@ export const verkoopordersDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Delivery Address',
-        description: 'The delivery address of the verkooporder',
+        description: 'The delivery address of the sales order',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -240,14 +241,14 @@ export const verkoopordersDescription: INodeProperties[] = [
           },
         ],
       },
-      { displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the verkooporder' },
+      { displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the sales order' },
       {
         displayName: 'Direct Debit Authorization',
         name: 'incassomachtiging',
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Authorization',
-        description: 'Direct debit authorization reference',
+        description: 'Direct debit authorization (Incassomachtiging) reference',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -287,7 +288,7 @@ export const verkoopordersDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Invoice Address',
-        description: 'The invoice address of the verkooporder',
+        description: 'The invoice address of the sales order',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -329,27 +330,27 @@ export const verkoopordersDescription: INodeProperties[] = [
         name: 'verkoopOrderStatus',
         type: 'options',
         default: 'InBehandeling',
-        description: 'Processing status of the verkooporder',
+        description: 'Processing status of the sales order',
         options: [
-          { name: 'InBehandeling', value: 'InBehandeling' },
+          { name: 'In Progress', value: 'InBehandeling' },
           { name: 'Service', value: 'Service' },
-          { name: 'Uitgevoerd', value: 'Uitgevoerd' },
+          { name: 'Completed', value: 'Uitgevoerd' },
         ],
       },
-      { displayName: 'Payment Reference', name: 'betalingskenmerk', type: 'string', default: undefined, description: 'The payment reference of the verkooporder' },
+      { displayName: 'Payment Reference', name: 'betalingskenmerk', type: 'string', default: undefined, description: 'The payment reference of the sales order' },
       {
         displayName: 'Process Status',
         name: 'procesStatus',
         type: 'options',
         default: 'Order',
-        description: 'Document status of the verkooporder',
+        description: 'Document status of the sales order',
         options: [
-          { name: 'Afhaalbon', value: 'Afhaalbon' },
-          { name: 'Bevestiging', value: 'Bevestiging' },
-          { name: 'Offerte', value: 'Offerte' },
+          { name: 'Collection Note', value: 'Afhaalbon' },
+          { name: 'Confirmation', value: 'Bevestiging' },
+          { name: 'Quotation', value: 'Offerte' },
           { name: 'Order', value: 'Order' },
-          { name: 'Pakbon', value: 'Pakbon' },
-          { name: 'Werkbon', value: 'Werkbon' },
+          { name: 'Packing Slip', value: 'Pakbon' },
+          { name: 'Work Order', value: 'Werkbon' },
         ],
       },
       { displayName: 'Public ID', name: 'id', type: 'string', default: undefined, description: 'Public identifier (GUID)' },
@@ -360,7 +361,7 @@ export const verkoopordersDescription: INodeProperties[] = [
         typeOptions: { multipleValues: true },
         default: {},
         placeholder: 'Add Rule',
-        description: 'Order line rules',
+        description: 'Sales order line rules',
         options: [
           {
             displayName: 'Rule',
@@ -418,7 +419,7 @@ export const verkoopordersDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Sales Invoice',
-        description: 'Sales invoice reference',
+        description: 'Sales invoice (Verkoopfactuur) reference',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -437,7 +438,7 @@ export const verkoopordersDescription: INodeProperties[] = [
         type: 'fixedCollection',
         default: {},
         placeholder: 'Add Template',
-        description: 'Template to use for this verkooporder',
+        description: 'Template to use for this sales order (Verkooporder)',
         typeOptions: { multipleValues: false },
         options: [
           {
@@ -456,8 +457,8 @@ export const verkoopordersDescription: INodeProperties[] = [
         type: 'options',
         default: 'Inclusief',
         options: [
-          { name: 'Exclusief', value: 'Exclusief' },
-          { name: 'Inclusief', value: 'Inclusief' },
+          { name: 'Excluding VAT', value: 'Exclusief' },
+          { name: 'Including VAT', value: 'Inclusief' },
         ],
       },
       { displayName: 'Total Excluding VAT', name: 'totaalExclusiefBtw', type: 'number', default: undefined },

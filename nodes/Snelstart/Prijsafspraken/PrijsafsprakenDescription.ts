@@ -8,7 +8,7 @@ export const prijsafsprakenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyPrijsafspraken',
     options: [
-      { name: "Get Many Prijsafspraken", value: "getManyPrijsafspraken", action: "Get many prijsafspraken" }
+      { name: "Get Many Pricing Agreements", value: "getManyPrijsafspraken", action: "Get many pricing agreements", description: "Retrieve multiple pricing agreements (Prijsafspraken) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['prijsafspraken'] },
@@ -40,7 +40,7 @@ export const prijsafsprakenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]

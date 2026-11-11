@@ -8,11 +8,11 @@ export const bankboekingenDescription: INodeProperties[] = [
 		noDataExpression: true,
 		default: 'getManyBankboekingen',
 		options: [
-			{ name: "Delete Bankboekingen", value: "deleteBankboekingen", action: "Delete bankboekingen" },
-			{ name: "Get Bankboekingen", value: "getBankboekingen", action: "Get bankboekingen" },
-			{ name: "Get Many Bankboekingen", value: "getManyBankboekingen", action: "Get many bankboekingen" },
-			{ name: "Post Bankboekingen", value: "postManyBankboekingen", action: "Post bankboekingen" },
-			{ name: "Put Bankboekingen", value: "putBankboekingen", action: "Put bankboekingen" }
+			{ name: "Delete Bank Entry", value: "deleteBankboekingen", action: "Delete bank entry", description: "Delete a bank entry (Bankboeking) from SnelStart" },
+			{ name: "Get Bank Entry", value: "getBankboekingen", action: "Get bank entry", description: "Retrieve a bank entry (Bankboeking) from SnelStart" },
+			{ name: "Get Many Bank Entries", value: "getManyBankboekingen", action: "Get many bank entries", description: "Retrieve multiple bank entries (Bankboekingen) from SnelStart" },
+			{ name: "Post Bank Entries", value: "postManyBankboekingen", action: "Post bank entries", description: "Post bank entries (Bankboekingen) to SnelStart" },
+			{ name: "Put Bank Entry", value: "putBankboekingen", action: "Put bank entry", description: "Put a bank entry (Bankboeking) in SnelStart" }
 		],
 		displayOptions: {
 			show: {
@@ -34,12 +34,12 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Bankboekingen ID',
+		displayName: 'Bank Entry ID',
 		name: 'bankboekingen_id',
 		type: 'string',
 		default: undefined,
 		required: true,
-		description: 'The ID of the bankboekingen to retrieve',
+		description: 'The ID of the bank entry (Bankboeking) to retrieve',
 		displayOptions: {
 			show: {
 				resource: ['bankboekingen'],
@@ -73,7 +73,7 @@ export const bankboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: 0, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		]
@@ -83,7 +83,7 @@ export const bankboekingenDescription: INodeProperties[] = [
 		name: 'datum',
 		type: 'dateTime',
 		default: undefined,
-		description: 'The date of the bankboekingen is created or last modified',
+		description: 'The date (Datum) of the bank entry (Bankboeking)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -93,11 +93,11 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Total Spend',
+		displayName: 'Total Spent',
 		name: 'bedragUitgegeven',
 		type: 'number',
 		default: undefined,
-		description: 'The total amount spent in the bankboekingen',
+		description: 'The total amount spent (Bedrag uitgegeven) in the bank entry (Bankboeking)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -111,7 +111,7 @@ export const bankboekingenDescription: INodeProperties[] = [
 		name: 'bedragOntvangen',
 		type: 'number',
 		default: undefined,
-		description: 'The total amount received in the bankboekingen',
+		description: 'The total amount received (Bedrag ontvangen) in the bank entry (Bankboeking)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -121,12 +121,12 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Diary',
+		displayName: 'Journal',
 		name: 'dagboek',
 		type: 'fixedCollection',
 		default: {},
-		placeholder: 'Add Diary',
-		description: 'The diary of the bankboekingen reference',
+		placeholder: 'Add Journal',
+		description: 'The journal (Dagboek) associated with the bank entry (Bankboeking)',
 		required: true,
 		typeOptions: { multipleValues: false },
 		displayOptions: {
@@ -137,12 +137,12 @@ export const bankboekingenDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Diary',
+				displayName: 'Journal',
 				name: 'values',
 				default: {},
 				values: [
-					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the diary the bankboekingen belongs to' },
-					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the diary the bankboekingen belongs to' },
+					{ displayName: 'ID', name: 'id', type: 'string', default: undefined, required: true, description: 'The ID of the journal (Dagboek) the bank entry belongs to' },
+					{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, required: true, description: 'The URI of the journal (Dagboek) the bank entry belongs to' },
 				],
 			},
 		],
@@ -173,161 +173,161 @@ export const bankboekingenDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description of the bankboekingen' },
-			{ displayName: 'Document', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number of the bankboekingen' },
+			{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the bank entry (Bankboeking)' },
+			{ displayName: 'Document Number', name: 'boekstuk', type: 'string', default: undefined, description: 'The document number (Boekstuk) of the bank entry (Bankboeking)' },
 			{
-				displayName: 'General Ledger Booking Rules',
+				displayName: 'General Ledger Posting Lines',
 				name: 'grootboekBoekingsRegels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add General Ledger Booking Rule',
-				description: 'The general ledger booking rules of the bankboekingen',
+				placeholder: 'Add General Ledger Posting Line',
+				description: 'The general ledger posting lines (Grootboekboekingsregels) of the bank entry (Bankboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Cost Center (Kostenplaats)',
+								displayName: 'Cost Center',
 								name: 'kostenplaats',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Cost Center (Kostenplaats)',
+										displayName: 'Cost Center',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Kostenplaats-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Kostenplaats-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the cost center (Kostenplaats) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the cost center (Kostenplaats)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit bedrag' },
-							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'Debet bedrag' },
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Omschrijving van de regel' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the posting line' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the posting line' },
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the posting line' },
 							{
-								displayName: 'Ledger (Grootboek)',
+								displayName: 'General Ledger',
 								name: 'grootboek',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Ledger (Grootboek)',
+										displayName: 'General Ledger',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Grootboek-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Grootboek-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the general ledger (Grootboek) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the general ledger (Grootboek)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'VAT Type (btwSoort)', name: 'btwSoort', type: 'string', default: undefined, description: 'E.g. "Geen".' },
+							{ displayName: 'VAT Type', name: 'btwSoort', type: 'string', default: undefined, description: 'The VAT type (Btw-soort) of the posting line, for example "Geen" (None)' },
 						],
 					},
 				],
 			},
-			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The public identifier of the bankboekingen (GUID)', },
-			{ displayName: 'Mark It', name: 'markering', type: 'boolean', default: false, description: 'Whether this bankboeking requires extra attention' },
-			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the bankboekingen was modified by an accountant' },
-			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The modification date of the bankboekingen to fetch' },
+			{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The public identifier of the bank entry (Bankboeking) as System.Guid', },
+			{ displayName: 'Mark for Attention', name: 'markering', type: 'boolean', default: false, description: 'Whether the bank entry (Bankboeking) is marked (Markering) as requiring extra attention' },
+			{ displayName: 'Modified By Accountant', name: 'gewijzigdDoorAccountant', type: 'boolean', default: false, description: 'Whether the bank entry (Bankboeking) was modified by an accountant (Gewijzigd door accountant)' },
+			{ displayName: 'Modified On', name: 'modifiedOn', type: 'dateTime', default: undefined, description: 'The date and time the bank entry (Bankboeking) was last modified' },
 			{
-				displayName: 'Purchase Entry Booking Rules',
+				displayName: 'Purchase Entry Posting Lines',
 				name: 'inkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add Purchase Entry Booking Rule',
-				description: 'The purchase entry booking rules of the bankboekingen',
+				placeholder: 'Add Purchase Entry Posting Line',
+				description: 'The purchase entry posting lines (Inkoopboekingboekingsregels) of the bank entry (Bankboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Boeking ID',
+								displayName: 'Entry ID',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Boeking ID',
-										placeholder: 'Add Boeking ID',
+										displayName: 'Entry ID',
+										placeholder: 'Add Entry ID',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Boeking-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Boeking-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the entry (Boeking) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the entry (Boeking)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the Purchase Entry Boeking Rule' },
-							{ displayName: 'Debet', name: 'debet', type: 'number', default: undefined, description: 'Debet amount' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit amount' }
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the purchase entry posting line (Inkoopboekingboekingsregel)' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the purchase entry posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the purchase entry posting line' }
 						],
 					},
 				],
 			},
 			{
-				displayName: 'Sales Entry Booking Rules',
+				displayName: 'Sales Entry Posting Lines',
 				name: 'verkoopboekingBoekingsRegels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add Sales Entry Booking Rule',
-				description: 'The sales entry booking rules of the bankboekingen',
+				placeholder: 'Add Sales Entry Posting Line',
+				description: 'The sales entry posting lines (Verkoopboekingboekingsregels) of the bank entry (Bankboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
 							{
-								displayName: 'Boeking ID',
+								displayName: 'Entry ID',
 								name: 'boekingId',
 								type: 'fixedCollection',
 								default: {},
 								options: [
 									{
 										name: 'values',
-										displayName: 'Boeking ID',
-										placeholder: 'Add Boeking ID',
+										displayName: 'Entry ID',
+										placeholder: 'Add Entry ID',
 										values: [
-											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Boeking-ID (GUID)' },
-											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Boeking-resource URI' },
+											{ displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'The ID of the entry (Boeking) as System.Guid' },
+											{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the entry (Boeking)' },
 										],
 									},
 								],
 							},
-							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'Description of the Sales Entry Boeking Rule' },
-							{ displayName: 'Debet', name: 'debet', type: 'number', default: undefined, description: 'Debet amount' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit amount' }
+							{ displayName: 'Description', name: 'omschrijving', type: 'string', default: undefined, description: 'The description (Omschrijving) of the sales entry posting line (Verkoopboekingboekingsregel)' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the sales entry posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the sales entry posting line' }
 						],
 					},
 				],
 			},
-			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the bankboekingen', },
+			{ displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'The URI of the bank entry (Bankboeking)', },
 			{
-				displayName: 'VAT Booking Rules',
+				displayName: 'VAT Posting Lines',
 				name: 'btwBoekingsregels',
 				type: 'fixedCollection',
 				typeOptions: { multipleValues: true },
 				default: {},
-				placeholder: 'Add VAT Booking Rule',
-				description: 'The VAT booking rules of the bankboekingen',
+				placeholder: 'Add VAT Posting Line',
+				description: 'The VAT posting lines (Btw-boekingsregels) of the bank entry (Bankboeking)',
 				options: [
 					{
-						displayName: 'Rule',
+						displayName: 'Line',
 						name: 'values',
 						typeOptions: { multipleValues: false },
 						values: [
-							{ displayName: 'Debet', name: 'debet', type: 'number', default: undefined, description: 'Debet amount' },
-							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'Credit amount' },
-							{ displayName: 'Type', name: 'type', type: 'string', default: undefined, description: 'VAT Type to be Claimed' },
-							{ displayName: 'Rate', name: 'tarief', type: 'string', default: undefined, description: 'VAT Rate' },
+							{ displayName: 'Debit', name: 'debet', type: 'number', default: undefined, description: 'The debit amount (Debetbedrag) of the VAT posting line' },
+							{ displayName: 'Credit', name: 'credit', type: 'number', default: undefined, description: 'The credit amount (Creditbedrag) of the VAT posting line' },
+							{ displayName: 'Type', name: 'type', type: 'string', default: undefined, description: 'The VAT type (Btw-soort) of the posting line' },
+							{ displayName: 'Rate', name: 'tarief', type: 'string', default: undefined, description: 'The VAT rate (Btw-tarief) of the posting line' },
 						],
 					},
 				],
@@ -335,5 +335,3 @@ export const bankboekingenDescription: INodeProperties[] = [
 		],
 	},
 ];
-
-

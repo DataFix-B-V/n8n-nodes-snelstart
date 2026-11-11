@@ -8,13 +8,13 @@ export const bankafschriftbestandenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'postBankafschriftbestand',
     options: [
-      { name: "Post Bankafschriftbestand", value: "postBankafschriftbestand", action: "Post bankafschriftbestand" }
+      { name: "Post Bank Statement File", value: "postBankafschriftbestand", action: "Post bank statement file", description: "Upload a bank statement file (Bankafschriftbestand) to SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['bankafschriftbestanden'] },
     },
   },
-	// Adding a note to the UI for posting and putting offertes, that the user should be aware of some fields are required despite the official docs stating they’re optional fields can be missed during testing
+	// Adding a note to the UI for posting and putting bank statement files, that the user should be aware of some fields are required despite the official docs stating they’re optional fields can be missed during testing
 	{
 		displayName:
 			'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
@@ -33,7 +33,7 @@ export const bankafschriftbestandenDescription: INodeProperties[] = [
 		name: 'name',
 		type: 'string',
 		default: undefined,
-		description: 'The name of the Bankafschriftbestand',
+		description: 'The name of the bank statement file (Bankafschriftbestand)',
 		required: true,
 		displayOptions: {
 			show: {
@@ -42,11 +42,11 @@ export const bankafschriftbestandenDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'base64EncodedContent',
+		displayName: 'Base64 Encoded Content',
 		name: 'base64EncodedContent',
 		type: 'string',
 		default: undefined,
-		description: 'The base64 encoded content of the Bankafschriftbestand',
+		description: 'The Base64-encoded content of the bank statement file (Bankafschriftbestand)',
 		required: true,
 		displayOptions: {
 			show: {

@@ -1,3 +1,4 @@
+
 import { INodeProperties } from 'n8n-workflow';
 
 export const verkoopboekingenDescription: INodeProperties[] = [
@@ -8,34 +9,34 @@ export const verkoopboekingenDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getVerkoopboekingen',
     options: [
-      { name: "Get Verkoopboekingen", value: "getVerkoopboekingen", action: "Get verkoopboekingen" },
-      { name: "Post Many Verkoopboekingen", value: "postManyVerkoopboekingen", action: "Post many verkoopboekingen" },
-      { name: "Put Verkoopboekingen", value: "putVerkoopboekingen", action: "Put verkoopboekingen" },
-      { name: "Delete Verkoopboekingen", value: "deleteVerkoopboekingen", action: "Delete verkoopboekingen" }
+      { name: "Get Sales Booking", value: "getVerkoopboekingen", action: "Get a sales booking", description: "Retrieve a specific sales booking (Verkoopboeking) from SnelStart" },
+      { name: "Post Many Sales Bookings", value: "postManyVerkoopboekingen", action: "Post many sales bookings", description: "Create multiple sales bookings (Verkoopboekingen) in SnelStart" },
+      { name: "Put Sales Booking", value: "putVerkoopboekingen", action: "Update a sales booking", description: "Update an existing sales booking (Verkoopboeking) in SnelStart" },
+      { name: "Delete Sales Booking", value: "deleteVerkoopboekingen", action: "Delete a sales booking", description: "Delete a specific sales booking (Verkoopboeking) from SnelStart" }
     ],
     displayOptions: {
       show: { resource: ['verkoopboekingen'] },
     },
   },
-	{
-		displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
-		name: 'postNotice',
-		type: 'notice',
-		default: '',
-		displayOptions: {
-			show: {
-				resource: ['verkoopboekingen'],
-				operation: ['postManyVerkoopboekingen', 'putVerkoopboekingen'],
-			},
-		},
-	},
- {
-    displayName: 'Verkoop Boeking ID',
+  {
+    displayName: 'Heads-up: Not all POST endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
+    name: 'postNotice',
+    type: 'notice',
+    default: '',
+    displayOptions: {
+      show: {
+        resource: ['verkoopboekingen'],
+        operation: ['postManyVerkoopboekingen', 'putVerkoopboekingen'],
+      },
+    },
+  },
+  {
+    displayName: 'Sales Booking ID',
     name: 'verkoop_boeking_id',
     type: 'string',
     default: undefined,
     required: true,
-    description: 'The ID of the verkoopboeking to retrieve or modify',
+    description: 'The ID of the sales booking to retrieve or modify',
     displayOptions: {
       show: {
         resource: ['verkoopboekingen'],
@@ -43,23 +44,23 @@ export const verkoopboekingenDescription: INodeProperties[] = [
       },
     },
   },
-	{
-		displayName: 'Return All',
-		name: 'returnAll',
-		type: 'boolean',
-		default: true,
-		description: 'Whether to return all results or only up to a given limit',
-		displayOptions: {
-			show: {
-				resource: ['verkoopboekingen'],
-				operation: ['getManyVerkoopboekingen'],
-			},
-		},
-	},
-	{
-		displayName: 'Options',
-		name: 'options',
-		type: 'collection',
+  {
+    displayName: 'Return All',
+    name: 'returnAll',
+    type: 'boolean',
+    default: true,
+    description: 'Whether to return all results or only up to a given limit',
+    displayOptions: {
+      show: {
+        resource: ['verkoopboekingen'],
+        operation: ['getManyVerkoopboekingen'],
+      },
+    },
+  },
+  {
+    displayName: 'Options',
+    name: 'options',
+    type: 'collection',
     placeholder: 'Add Option',
     default: {},
     displayOptions: {
@@ -81,7 +82,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
     type: 'string',
     default: undefined,
     required: true,
-    description: 'The invoice number of the verkoopboeking',
+    description: 'The invoice number of the sales booking',
     displayOptions: {
       show: {
         resource: ['verkoopboekingen'],
@@ -97,7 +98,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
     default: {},
     required: true,
     placeholder: 'Add Customer',
-    description: 'Relatie reference for the verkoopboeking',
+    description: 'Customer (Relatie) reference for the sales booking',
     typeOptions: { multipleValues: false },
     displayOptions: {
       show: {
@@ -111,8 +112,8 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         name: 'values',
         default: {},
         values: [
-          { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Relatie ID (GUID)' },
-          { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Relatie resource URI' },
+          { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Customer (Relatie) ID (GUID)' },
+          { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Customer (Relatie) resource URI' },
         ],
       },
     ],
@@ -126,7 +127,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
     default: {},
     required: true,
     placeholder: 'Add Booking Rule',
-    description: 'Revenue lines of the verkoopboeking (VAT lines go in the Btw collection)',
+    description: 'Revenue lines of the sales booking (VAT lines go in the VAT collection)',
     displayOptions: {
       show: {
         resource: ['verkoopboekingen'],
@@ -150,8 +151,8 @@ export const verkoopboekingenDescription: INodeProperties[] = [
                 name: 'values',
                 displayName: 'Cost Center',
                 values: [
-                  { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Kostenplaats ID (GUID)' },
-                  { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Kostenplaats resource URI' },
+                  { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Cost center (Kostenplaats) ID (GUID)' },
+                  { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Cost center (Kostenplaats) resource URI' },
                 ],
               },
             ],
@@ -167,8 +168,8 @@ export const verkoopboekingenDescription: INodeProperties[] = [
                 name: 'values',
                 displayName: 'Ledger',
                 values: [
-                  { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'Grootboek ID (GUID)' },
-                  { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'Grootboek resource URI' },
+                  { displayName: 'ID', name: 'id', type: 'string', default: undefined, description: 'General ledger (Grootboek) ID (GUID)' },
+                  { displayName: 'URI', name: 'uri', type: 'string', default: undefined, description: 'General ledger (Grootboek) resource URI' },
                 ],
               },
             ],
@@ -197,21 +198,21 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         name: 'gewijzigdDoorAccountant',
         type: 'boolean',
         default: false,
-        description: 'Whether the verkoopboeking was modified by an accountant',
+        description: 'Whether the sales booking was modified by an accountant',
       },
       {
         displayName: 'Description',
         name: 'omschrijving',
         type: 'string',
         default: undefined,
-        description: 'Description of the verkoopboeking',
+        description: 'Description of the sales booking',
       },
       {
         displayName: 'Document Number',
         name: 'boekstuk',
         type: 'string',
         default: undefined,
-        description: 'Document number of the verkoopboeking',
+        description: 'Document number of the sales booking',
       },
       {
         displayName: 'Documents',
@@ -220,7 +221,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         typeOptions: { multipleValues: true },
         default: {},
         placeholder: 'Add Document',
-        description: 'Attachments linked to the verkoopboeking',
+        description: 'Attachments linked to the sales booking',
         options: [
           {
             displayName: 'Document',
@@ -241,7 +242,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         name: 'markering',
         type: 'boolean',
         default: false,
-        description: 'Whether the verkoopboeking is marked for extra attention',
+        description: 'Whether the sales booking is marked for extra attention',
       },
       {
         displayName: 'Invoice Amount',
@@ -255,7 +256,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         name: 'factuurdatum',
         type: 'dateTime',
         default: undefined,
-        description: 'Booking date of the verkoopboeking',
+        description: 'Booking date of the sales booking',
       },
       {
         displayName: 'Modified On',
@@ -331,7 +332,7 @@ export const verkoopboekingenDescription: INodeProperties[] = [
         typeOptions: { multipleValues: true },
         default: {},
         placeholder: 'Add VAT Line',
-        description: 'VAT payable per VAT rate for the verkoopboeking',
+        description: 'VAT payable per VAT rate for the sales booking',
         options: [
           {
             displayName: 'VAT Line',

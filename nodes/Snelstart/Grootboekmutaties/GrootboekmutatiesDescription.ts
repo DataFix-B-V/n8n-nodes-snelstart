@@ -8,8 +8,8 @@ export const grootboekmutatiesDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyGrootboekmutaties',
     options: [
-      { name: "Get Many Grootboekmutaties", value: "getManyGrootboekmutaties", action: "Get many grootboekmutaties" },
-			{ name: "Get Grootboekmutaties", value: "getGrootboekmutaties", action: "Get grootboekmutaties" },
+      { name: "Get Many General Ledger Entries", value: "getManyGrootboekmutaties", action: "Get many general ledger entries", description: "Retrieve multiple general ledger entries (Grootboekmutaties) from SnelStart" },
+			{ name: "Get General Ledger Entry", value: "getGrootboekmutaties", action: "Get general ledger entry", description: "Retrieve a general ledger entry (Grootboekmutatie) from SnelStart" },
     ],
     displayOptions: {
       show: { resource: ['grootboekmutaties'] },
@@ -41,17 +41,17 @@ export const grootboekmutatiesDescription: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData $filter' },
+			{ displayName: 'Filter', name: '$filter', type: 'string', default: undefined, description: 'OData filter string to filter the results' },
 			{ displayName: 'Skip', name: '$skip', type: 'number', default: undefined, description: 'The number of items to skip', displayOptions: { show: { '/returnAll': [false] }, }, },
 			{ displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return', displayOptions: { show: { '/returnAll': [false] }, }, },
 		],
 	},
 	{
-		displayName: 'Grootboek Mutatie ID',
+		displayName: 'General Ledger Entry ID',
 		name: 'grootboek_mutatie_id',
 		type: 'string',
 		default: undefined,
-		description: 'Unique identifier for the grootboekmutatie (GUID)',
+		description: 'The unique identifier of the general ledger entry (Grootboekmutatie) as System.Guid',
 		required: true,
 		displayOptions: {
 			show: {
