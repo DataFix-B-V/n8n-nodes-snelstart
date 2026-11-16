@@ -105,19 +105,6 @@ export const offertesDescription: INodeProperties[] = [
       },
     ],
   },
-  // Adding a note to the UI for posting and putting quotations
-  {
-    displayName: 'Heads-up: Fields marked (\\\*) are required (verified via testing), despite the official docs stating they’re optional. It is possible that more fields are required but not yet identified.',
-    name: 'note',
-    type: 'notice',
-    default: '',
-    displayOptions: {
-      show: {
-        resource: ['offertes'],
-        operation: ['postManyOffertes', 'putOffertes'],
-      },
-    },
-  },
   {
     displayName: 'Add Field',
     name: 'fields',

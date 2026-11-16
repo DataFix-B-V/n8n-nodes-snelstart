@@ -24,18 +24,6 @@ export const relatiesDescription: INodeProperties[] = [
     },
   },
   {
-    displayName: 'Heads-up: Not all POST and PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
-    name: 'postNotice',
-    type: 'notice',
-    default: '',
-    displayOptions: {
-      show: {
-        resource: ['relaties'],
-        operation: ['postManyRelaties', 'putRelaties', 'putRelatiesCustomFields'],
-      },
-    },
-  },
-  {
     displayName: 'Relation ID',
     name: 'relatie_id',
     type: 'string',

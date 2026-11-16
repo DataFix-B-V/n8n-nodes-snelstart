@@ -208,12 +208,33 @@ export async function makeRequest(
 
 		return res as SnelstartRequestResponse;
 	} catch (error) {
+		const apiError = error as {
+			message?: string;
+			description?: string;
+			httpCode?: string;
+			response?: {
+				data?: unknown;
+				status?: number;
+			};
+		};
+
+		const message = apiError.message || 'SnelStart API request failed';
+
+		const description =
+			apiError.response?.data !== undefined
+				? JSON.stringify(apiError.response.data)
+				: apiError.description || 'No additional API error details available';
+
+		const httpCode = apiError.httpCode ?? apiError.response?.status?.toString();
+
 		throw new NodeApiError(
 			this.getNode(),
-			toJsonObject(error) as JsonObject,
 			{
-				message: `${error?.message || 'jsmAssets API request failed'}`,
-				description: `${JSON.stringify(toJsonObject(error), null, 2)}`,
+				...(httpCode ? { httpCode } : {}),
+			},
+			{
+				message,
+				description,
 			},
 		);
 	}

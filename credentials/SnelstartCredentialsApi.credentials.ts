@@ -13,7 +13,7 @@ export class SnelstartCredentialsApi implements ICredentialType {
 	displayName = 'Snelstart Credentials API';
 
 	documentationUrl = 'https://b2bapi-developer.snelstart.nl/';
-	icon: Icon = 'file:SnelstartIcon.svg';
+	icon: Icon = 'file:snelstart.svg';
 
 	properties: INodeProperties[] = [
 		{
@@ -21,7 +21,9 @@ export class SnelstartCredentialsApi implements ICredentialType {
 			name: 'clientKey',
 			type: 'string',
 			description: 'Log in to SnelStart Web, open the desired link tile and select “set up link” to generate the key.',
-			typeOptions: { password: true },
+			typeOptions:{
+				password: true
+			},
 			default: '',
 			required: true,
 		},
@@ -42,6 +44,7 @@ export class SnelstartCredentialsApi implements ICredentialType {
 			required: false,
 			typeOptions: {
 				expirable: true,
+				password: true
 			},
 		}
 	];

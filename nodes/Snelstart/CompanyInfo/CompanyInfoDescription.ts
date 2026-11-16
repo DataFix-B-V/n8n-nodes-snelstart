@@ -9,25 +9,12 @@ export const companyInfoDescription: INodeProperties[] = [
     noDataExpression: true,
     default: 'getManyCompanyInfo',
     options: [
-      { name: 'Get Many Company Info', value: 'getManyCompanyInfo', action: 'Get many company info', description: 'Retrieve company information (Bedrijfsgegevens) from SnelStart' },
-      { name: 'Put Company Info', value: 'putManyCompanyInfo', action: 'Put company info', description: 'Update company information (Bedrijfsgegevens) in SnelStart' },
+      { name: 'Get', value: 'getManyCompanyInfo', action: 'Get many company info', description: 'Retrieve company information (Bedrijfsgegevens) from SnelStart' },
+      { name: 'Put', value: 'putManyCompanyInfo', action: 'Put company info', description: 'Update company information (Bedrijfsgegevens) in SnelStart' },
     ],
     displayOptions: {
       show: {
         resource: ['companyInfo'],
-      },
-    },
-  },
-  {
-    displayName:
-      'Heads-up: Not all PUT endpoints are fully tested. Some fields may be missing and some are required even if the official docs mark them optional. Refer to the provider’s docs and API error messages. Fields marked (*) are verified as required.',
-    name: 'postNotice',
-    type: 'notice',
-    default: '',
-    displayOptions: {
-      show: {
-        resource: ['companyInfo'],
-        operation: ['putManyCompanyInfo'],
       },
     },
   },

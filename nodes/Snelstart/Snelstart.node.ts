@@ -51,7 +51,7 @@ export class Snelstart implements INodeType {
 		version: 1,
 		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		description: 'Node for controlling Snelstart with the Snelstart API',
-		icon: 'file:SnelstartIcon.svg',
+		icon: { light: 'file:snelstart.svg', dark: 'file:snelstart.dark.svg' },
 		defaults: {
 			name: 'Snelstart',
 		},

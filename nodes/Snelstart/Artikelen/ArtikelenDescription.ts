@@ -134,20 +134,6 @@ export const artikelenDescription: INodeProperties[] = [
       { displayName: 'Top', name: '$top', type: 'number', default: undefined, description: 'The number of items to return' },
     ],
   },
-
-  // Adding a note to the UI for posting and putting articles
-  {
-    displayName: 'Heads-up: Fields marked (*) are required (verified via testing), despite the official documentation stating they are optional. Additional required fields may exist but have not yet been identified.',
-    name: 'note',
-    type: 'notice',
-    default: '',
-    displayOptions: {
-      show: {
-        resource: ['artikelen'],
-        operation: ['postManyArtikelen', 'putArtikelen'],
-      },
-    },
-  },
   {
     displayName: 'Add Field',
     name: 'fields',
