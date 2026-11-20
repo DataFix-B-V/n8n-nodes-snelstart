@@ -13,8 +13,7 @@ export class SnelstartCredentialsApi implements ICredentialType {
 	displayName = 'Snelstart Credentials API';
 
 	documentationUrl = 'https://b2bapi-developer.snelstart.nl/';
-	icon: Icon = 'file:snelstart.svg';
-
+	icon: Icon = { light: 'file:snelstart.svg', dark: 'file:snelstart.svg' };
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Snelstart Client Key',
